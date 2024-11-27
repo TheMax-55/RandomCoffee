@@ -20,7 +20,7 @@ bot.command(
 
 bot.command(
     "help",
-    (ctx) => ctx.reply("Что я умею:\n/about - краткая информация обо мне\n/command1 - описание1\n/command2 - описание2\n/command3 - описание3\n/command4 - описание4\n/command5 - описание5\n")
+    (ctx) => ctx.reply("Что я умею:\n/about - краткая информация\n/createprofile - создание анкеты\n/editprofile - изменение анкеты\n/command3 - описание3\n/command4 - описание4\n/command5 - описание5\n")
 );
 
 bot.command(
