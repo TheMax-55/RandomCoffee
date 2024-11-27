@@ -10,7 +10,7 @@ export const bot = new Bot(Deno.env.get("BOT_TOKEN") || ""); // export нуже�
 // Обработайте команду /start.
 bot.command(
     "start",
-    (ctx) => ctx.reply("Добро пожаловать. Я помогу найти вам интересного собеседника.", { reply_markup: keyboard1 }), 
+    (ctx) => ctx.reply("Добро пожаловать. Я помогу найти вам интересного собеседника."), 
 );
 
 bot.command(
@@ -22,37 +22,47 @@ bot.command(
     "help",
     (ctx) => ctx.reply("Что я умею:\n/about - краткая информация обо мне\n/command1 - описание1\n/command2 - описание2\n/command3 - описание3\n/command4 - описание4\n/command5 - описание5\n")
 );
+
+bot.command(
+    "createProfile",
+    (ctx) => ctx.reply("Расскажите о себе:"), 
+);
+
+bot.command(
+    "editProfile",
+    (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
+)
 // Клавиатура будет отправлять в бота команду /about
-const keyboard1 = new InlineKeyboard()
-    .text("Кнопка1", "/command1")
-    .text("Кнопка2", "/command2")
-    .text("Кнопка3", "/command3")
-    .text("Кнопка4", "/command4")
-    .text("Кнопка5", "/command5")
+const edit = new InlineKeyboard()
+    .text("Город", "/city")
+    .text("Район", "/area")
+    .text("Время встречия ", "/time")
+    .text("Увлечения ", "/hobby")
+    .text("Любимая кофейня", "/coffeeshop")
 
-bot.callbackQuery("/command1", async (ctx) => {
+bot.callbackQuery("/city", async (ctx) => {
     await ctx.answerCallbackQuery(); // Уведомляем Telegram, что мы обработали запрос
-    await ctx.reply("1) Я просто существую и не несу полезной функции...");
+    await ctx.reply("Ваш город");
 });
 
-bot.callbackQuery("/command2", async (ctx) => {
+bot.callbackQuery("/area", async (ctx) => {
     await ctx.answerCallbackQuery(); // Уведомляем Telegram, что мы обработали запрос
-    await ctx.reply("2) Я просто существую и не несу полезной функции...");
+    await ctx.reply("Ваш район");
 });
 
-bot.callbackQuery("/command3", async (ctx) => {
+bot.callbackQuery("/time", async (ctx) => {
     await ctx.answerCallbackQuery(); // Уведомляем Telegram, что мы обработали запрос
-    await ctx.reply("3) Я просто существую и не несу полезной функции...");
+    await ctx.reply("Время встречи");
 });
 
-bot.callbackQuery("/command4", async (ctx) => {
+bot.callbackQuery("/hobby", async (ctx) => {
     await ctx.answerCallbackQuery(); // Уведомляем Telegram, что мы обработали запрос
-    await ctx.reply("4) Я просто существую и не несу полезной функции...");
+    await ctx.reply("Ваши увлечения");
 });
 
-bot.callbackQuery("/command5", async (ctx) => {
+bot.callbackQuery("/coffeeshop", async (ctx) => {
     await ctx.answerCallbackQuery(); // Уведомляем Telegram, что мы обработали запрос
-    await ctx.reply("5) Я просто существую и не несу полезной функции...");
+    await ctx.reply("Ваша любимая кофейня");
 });
 
 // Обработайте другие сообщения.
