@@ -13,8 +13,6 @@ bot.command(
     (ctx) => ctx.reply("Добро пожаловать. Запущен и работает!",{ reply_markup: keyboard }),
 );
 
-// Обработайте другие сообщения.
-bot.on("message", (ctx) => ctx.reply("Получил ваше сообщение: " + ctx.message.text + " !",));
 
 // Клавиатура будет отправлять в бота команду /about
 const keyboard = new InlineKeyboard()
@@ -24,6 +22,9 @@ bot.callbackQuery("/about", async (ctx) => {
     await ctx.answerCallbackQuery(); // Уведомляем Telegram, что мы обработали запрос
     await ctx.reply("Бот для поиска людей с схожими интересами.");
 });
+
+// Обработайте другие сообщения.
+bot.on("message", (ctx) => ctx.reply("Получил ваше сообщение: " + ctx.message.text + " !",));
 
 // Теперь, когда вы указали, как обрабатывать сообщения, вы можете запустить своего бота.
 // Он подключится к серверам Telegram и будет ждать сообщений.
