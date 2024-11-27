@@ -20,7 +20,7 @@ bot.command(
 
 bot.command(
     "help",
-    (ctx) => ctx.reply("Что я умею: ничего:)")
+    (ctx) => ctx.reply("Что я умею:\n/about - краткая информация обо мне\n/command1 - описание1\n/command2 - описание2\n/command3 - описание3\n/command4 - описание4\n/command5 - описание5\n")
 );
 // Клавиатура будет отправлять в бота команду /about
 const keyboard1 = new InlineKeyboard()
@@ -42,7 +42,7 @@ bot.callbackQuery("/command2", async (ctx) => {
 
 bot.callbackQuery("/command3", async (ctx) => {
     await ctx.answerCallbackQuery(); // Уведомляем Telegram, что мы обработали запрос
-    await ctx.reply("3) Я просто существую \n и не несу полезной функции...");
+    await ctx.reply("3) Я просто существую и не несу полезной функции...");
 });
 
 bot.callbackQuery("/command4", async (ctx) => {
