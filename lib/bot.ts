@@ -24,12 +24,12 @@ bot.command(
 );
 
 bot.command(
-    "createProfile",
+    "createprofile",
     (ctx) => ctx.reply("Расскажите о себе:"), 
 );
 
 bot.command(
-    "editProfile",
+    "editprofile",
     (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
 )
 // Клавиатура будет отправлять в бота команду /about
