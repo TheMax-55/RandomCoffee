@@ -20,7 +20,7 @@ bot.command(
 
 bot.command(
     "help",
-    (ctx) => ctx.reply("Что я умею: ничего)")
+    (ctx) => ctx.reply("Что я умею: ничего:)")
 );
 // Клавиатура будет отправлять в бота команду /about
 const keyboard1 = new InlineKeyboard()
