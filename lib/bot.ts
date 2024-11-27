@@ -25,7 +25,7 @@ const keyboard = new InlineKeyboard()
 
 bot.callbackQuery("/about", async (ctx) => {
     await ctx.answerCallbackQuery(); // Уведомляем Telegram, что мы обработали запрос
-    await ctx.reply("Бот для поиска людей с схожими интересами.");
+    await ctx.reply("Бот для поиска людей с схожими интересами, создан учениками и студентом кафедры ПМиФИ ОмГТУ во время 6 сезона проектной школы.");
 });
 
 // Обработайте другие сообщения.
