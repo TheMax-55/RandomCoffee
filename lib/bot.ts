@@ -42,7 +42,7 @@ bot.callbackQuery("/command2", async (ctx) => {
 
 bot.callbackQuery("/command3", async (ctx) => {
     await ctx.answerCallbackQuery(); // Уведомляем Telegram, что мы обработали запрос
-    await ctx.reply("3) Я просто существую и не несу полезной функции...");
+    await ctx.reply("3) Я просто существую \n и не несу полезной функции...");
 });
 
 bot.callbackQuery("/command4", async (ctx) => {
