@@ -22,7 +22,7 @@ const keyboard = new InlineKeyboard()
 
 bot.callbackQuery("/about", async (ctx) => {
     await ctx.answerCallbackQuery(); // Уведомляем Telegram, что мы обработали запрос
-    await ctx.reply("Я бот? Я бот... Я Бот!");
+    await ctx.reply("Бот для поиска людей с схожими интересами.");
 });
 
 // Теперь, когда вы указали, как обрабатывать сообщения, вы можете запустить своего бота.
