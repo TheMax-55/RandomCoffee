@@ -9,7 +9,7 @@ bot.command(
 
 bot.command(
     "about",
-    (ctx) => ctx.reply("Бот для поиска людей с схожими интересами, создан учениками 8-11 классов и студентом кафедры ПМиФИ ОмГТУ во время 6 сезона проектной школы."),
+    (ctx) => ctx.reply("Бот для поиска людей с схожими интересами, создан учениками 8-11 классов и студентом кафедры ПМиФИ ОмГТУ во время 6 сезона проектной школы.", { reply_markup: edit }),
 );
 
 bot.command(
@@ -18,9 +18,18 @@ bot.command(
 );
 
 bot.command(
-    "createprofile",
-    (ctx) => ctx.reply("Расскажите о себе:"), 
-);
+    "createprofile", 
+    async (ctx) => {
+        await ctx.reply("Давайте создадим анкету. Для начала напишите свой район проживания");
+        const city = ctx.message;
+        await bot.on("message", (ctx) => ctx.reply("Теперь напишите удобное время встречи"));
+        const time = ctx.message;
+        await bot.on("message", (ctx) => ctx.reply("Теперь напишите свои увлечения"))
+        const hobby = ctx.message;
+        await bot.on("message", (ctx) => ctx.reply("Теперь напишите адрес своей любимой кофейни"));
+        const coffeeshop = ctx.message;
+        await bot.on("message", (ctx) => ctx.reply("Ваша анкета выглядит так, осталось только сохранить:", city));
+});
 
 bot.command(
     "editprofile",
@@ -28,16 +37,10 @@ bot.command(
 )
 
 const edit = new InlineKeyboard()
-    .text("Город", "/city")
     .text("Район", "/area")
     .text("Время встречия ", "/time")
     .text("Увлечения ", "/hobby")
     .text("Любимая кофейня", "/coffeeshop")
-
-bot.callbackQuery("/city", async (ctx) => {
-    await ctx.answerCallbackQuery();
-    await ctx.reply("Ваш город");
-});
 
 bot.callbackQuery("/area", async (ctx) => {
     await ctx.answerCallbackQuery();
