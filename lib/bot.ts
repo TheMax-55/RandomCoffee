@@ -19,17 +19,8 @@ bot.command(
 
 bot.command(
     "createprofile", 
-    async (ctx) => {
-        await ctx.reply("Давайте создадим анкету. Для начала напишите свой район проживания");
-        const city = ctx.message;
-        await bot.on("message", (ctx) => ctx.reply("Теперь напишите удобное время встречи"));
-        const time = ctx.message;
-        await bot.on("message", (ctx) => ctx.reply("Теперь напишите свои увлечения"))
-        const hobby = ctx.message;
-        await bot.on("message", (ctx) => ctx.reply("Теперь напишите адрес своей любимой кофейни"));
-        const coffeeshop = ctx.message;
-        await bot.on("message", (ctx) => ctx.reply("Ваша анкета выглядит так, осталось только сохранить:", city));
-});
+        (ctx) => ctx.reply("Давайте создадим анкету. Анкета должна быть написана в таком виде:\n Район:\nЛюбимая кофейня:\nВремя встречи:\nУвлечения:\n"),
+);
 
 bot.command(
     "editprofile",
