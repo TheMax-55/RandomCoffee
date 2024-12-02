@@ -53,23 +53,6 @@ bot.callbackQuery("/coffeeshop", async (ctx) => {
     await ctx.reply("Ваша любимая кофейня");
 });
 
-// bot.on("message", (ctx) => ctx.react("🫡"));
-bot.on('message', async (ctx) => {
-    if (ctx.msg.text) {
-        // Отправляем первое сообщение
-        await ctx.reply(`Вы написали: ${ctx.msg.text}`);
-        
-        // Задержка в 1 секунду
-        await delay(1000);
-        
-        // Отправляем второе сообщение
-        await ctx.reply("Это второе сообщение!");
-        
-        // Задержка в 1 секунду
-        await delay(1000);
-        
-        // Отправляем третье сообщение
-        await ctx.reply("И это третье сообщение!");
-    }
+bot.hears("Город", async ctx =>{
+    await ctx.reply("Омск");
 });
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
