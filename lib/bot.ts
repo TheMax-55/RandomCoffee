@@ -56,3 +56,7 @@ bot.callbackQuery("/coffeeshop", async (ctx) => {
 bot.hears("Город", async ctx =>{
     await ctx.reply("Омск");
 });
+
+bot.hears("Время", async ctx =>{
+    await ctx.reply("15:30");
+});
