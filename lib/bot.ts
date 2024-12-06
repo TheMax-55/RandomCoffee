@@ -47,18 +47,17 @@ bot.command(
 bot.command(
     "createprofile", async (ctx) => {
         await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
-        if(ctx.msg.text!= undefined){
+        if(typeof ctx.msg.text!== "string"){
             info.name = ctx.msg.text;
-            await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
-            if (info.gender != ""){
-            await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
-            if (ctx.msg.text != ""){
-                info.age = Number(ctx.msg.text);
-                await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
-                info.hobby = ctx.msg.text.split(",");
-                }
-            }
         }
+        await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
+        await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
+        if (ctx.msg.text != ""){
+            info.age = Number(ctx.msg.text);
+        }
+        await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
+        info.hobby = ctx.msg.text.split(",");
+
 });
 
 const gender = new InlineKeyboard()
