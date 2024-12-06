@@ -19,7 +19,7 @@ bot.command(
 
 bot.command(
     "about",
-    (ctx) => ctx.reply("Бот для поиска людей с схожими интересами, создан учениками 9 класса и студентом кафедры ПМиФИ ОмГТУ во время 6 сезона проектной школы🏫"),
+    (ctx) => ctx.reply("Бот для поиска людей с схожими интересами, создан учениками 9 класса Лицея №54 и студентом кафедры ПМиФИ ОмГТУ во время 6 сезона проектной школы🏫"),
 );
 
 bot.command(
@@ -40,14 +40,17 @@ bot.command(
 
 bot.command(
     "editprofile",
-    (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: decision })
+    (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
 )
 
 const edit = new InlineKeyboard()
+    .text("Имя", "/name")
+    .text("Пол","/gender")
+    .text("Возраст", "/age")
     .text("Район", "/area")
     .text("Время встречия ", "/time")
     .text("Увлечения ", "/hobby")
-    .text("Любимая кофейня", "/coffeeshop")
+    //.text("Любимая кофейня", "/coffeeshop")
 
 const decision = new InlineKeyboard()
     .text("Согласен👍", "/accept")
@@ -55,21 +58,25 @@ const decision = new InlineKeyboard()
 
 bot.callbackQuery("/area", async (ctx) => {
     await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
     await ctx.reply("Ваш район");
 });
 
 bot.callbackQuery("/time", async (ctx) => {
     await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
     await ctx.reply("Время встречи");
 });
 
 bot.callbackQuery("/hobby", async (ctx) => {
     await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
     await ctx.reply("Ваши увлечения");
 });
 
 bot.callbackQuery("/coffeeshop", async (ctx) => {
     await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
     await ctx.reply("Ваша любимая кофейня");
 });
 
@@ -82,5 +89,5 @@ bot.callbackQuery("/accept", async (ctx) =>{
 bot.callbackQuery("/decline", async (ctx) =>{
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Жаль... Буду искать нового собеседника")
+    await ctx.reply("Жаль... Буду искать нового собеседника.");
 });
