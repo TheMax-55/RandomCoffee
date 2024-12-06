@@ -45,17 +45,17 @@ bot.command(
 );
 
 bot.command(
-    "createprofile", async (ctx) => {
-        await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
+    "createprofile", (ctx) => {
+        ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
         if(typeof ctx.msg.text == "string"){
             info.name = ctx.msg.text;
         }
-        await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
-        await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
+        ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
+        ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
         if (ctx.msg.text != ""){
             info.age = Number(ctx.msg.text);
         }
-        await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
+        ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
         info.hobby = ctx.msg.text.split(",");
 });
 
