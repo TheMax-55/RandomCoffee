@@ -62,9 +62,9 @@ bot.command(
 const edit = new InlineKeyboard()
     .text("Имя", "/name")
     .text("\nВозраст", "/age")
-    .text("Район", "/area")
-    .text("Время встречия ", "/time")
-    .text("Увлечения ", "/hobby")
+    .text("\nРайон", "/area")
+    .text("\nВремя встречия ", "/time")
+    .text("\nУвлечения ", "/hobby")
     //.text("Любимая кофейня", "/coffeeshop")
     
 
