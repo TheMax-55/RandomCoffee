@@ -40,7 +40,7 @@ bot.command(
 
 bot.command(
     "editprofile",
-    (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
+    (ctx) => ctx.reply("Ч", { reply_markup: edit })
 )
 
 const edit = new InlineKeyboard()
