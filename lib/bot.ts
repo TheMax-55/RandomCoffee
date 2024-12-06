@@ -56,19 +56,19 @@ bot.command(
 // });
 
 const gender = new InlineKeyboard()
-    .text("Парень🧍‍♂", "/man")
-    .text("Девушка🧍‍♀", "/woman")
+    .text("Парень👨‍💼", "/man")
+    .text("Девушка👩‍💼", "/woman")
 
 bot.callbackQuery("/man", async (ctx) =>{
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    info.gender="Парень";
+    info.gender="парень";
 });
 
 bot.callbackQuery("/woman", async (ctx) =>{
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    info.gender="Девушка";
+    info.gender="девушка";
 });
 
 bot.command(
