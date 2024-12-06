@@ -10,6 +10,17 @@ interface UserInfo {
     area: string;
     time: string;
 }
+
+const info: UserInfo = {
+    id: 0,
+    name: "",
+    gender: "",
+    age: 0,
+    hobby: [],
+    area: "",
+    time: ""
+};
+
 bot.command(
     "start",
     (ctx) => ctx.reply("Добро пожаловать👋"+
@@ -25,10 +36,10 @@ bot.command(
 bot.command(
     "help",
     (ctx) => ctx.reply("Что я умею:"+
-        "\n/about - краткая информация"+
-        "\n/createprofile - создание анкеты"+
-        "\n/editprofile - изменение анкеты"+
-        "\n/command3 - описание3"+
+        "\n/about - краткая информация о боте"+
+        "\n/createprofile - создание своей анкеты"+
+        "\n/editprofile - изменение своей анкеты"+
+        "\n/myprofile - просмотр своей анкеты"+
         "\n/command4 - описание4"+
         "\n/command5 - описание5")
 );
@@ -40,21 +51,34 @@ bot.command(
 
 bot.command(
     "editprofile",
-    (ctx) => ctx.reply("Ч", { reply_markup: edit })
+    (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
+)
+
+bot.command(
+    "myprofile",
+    (ctx) => ctx.reply("")
 )
 
 const edit = new InlineKeyboard()
     .text("Имя", "/name")
-    .text("Пол","/gender")
-    .text("Возраст", "/age")
+    .text("\nВозраст", "/age")
     .text("Район", "/area")
     .text("Время встречия ", "/time")
     .text("Увлечения ", "/hobby")
     //.text("Любимая кофейня", "/coffeeshop")
+    
 
-const decision = new InlineKeyboard()
-    .text("Согласен👍", "/accept")
-    .text("Против👎", "/decline")
+bot.callbackQuery("/name", async (ctx) => {
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    await ctx.reply("Имя");
+});
+
+bot.callbackQuery("/name", async (ctx) => {
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    await ctx.reply("Возраст");
+});
 
 bot.callbackQuery("/area", async (ctx) => {
     await ctx.answerCallbackQuery();
@@ -79,6 +103,10 @@ bot.callbackQuery("/coffeeshop", async (ctx) => {
     await ctx.deleteMessage();
     await ctx.reply("Ваша любимая кофейня");
 });
+
+const decision = new InlineKeyboard()
+    .text("Согласен👍", "/accept")
+    .text("Против👎", "/decline")
 
 bot.callbackQuery("/accept", async (ctx) =>{
     await ctx.answerCallbackQuery();
