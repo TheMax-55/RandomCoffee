@@ -49,7 +49,6 @@ bot.command(
 //         await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
 //         info.name = ctx.msg.text;
 //         await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
-//         
 //         await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
 //         info.age = Number(ctx.msg.text);
 //         await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
@@ -80,7 +79,7 @@ bot.command(
 bot.command(
     "myprofile",
     (ctx) => ctx.reply("Сейчас твоя анкета выглядит вот так:\nПривет!"+
-        `\nМеня зовут ${info.name}, мне ${info.age}, мои увлечения: ${info.hobby} `)
+        `\nМеня зовут ${info.name}, я ${info.gender} ,мне ${info.age}, мои увлечения: ${info.hobby} `)
 )
 
 const edit = {inline_keyboard: [
