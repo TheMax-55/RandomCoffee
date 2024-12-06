@@ -65,8 +65,7 @@ const edit = new InlineKeyboard()
     .text("\nРайон", "/area")
     .text("\nВремя встречия ", "/time")
     .text("\nУвлечения ", "/hobby")
-    //.text("Любимая кофейня", "/coffeeshop")
-    
+    columns: 2
 
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
