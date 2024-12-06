@@ -19,7 +19,7 @@ bot.command(
 
 bot.command(
     "about",
-    (ctx) => ctx.reply("Бот для поиска людей с схожими интересами, создан учениками 8-11 классов и студентом кафедры ПМиФИ ОмГТУ во время 6 сезона проектной школы🏫"),
+    (ctx) => ctx.reply("Бот для поиска людей с схожими интересами, создан учениками 9 класса и студентом кафедры ПМиФИ ОмГТУ во время 6 сезона проектной школы🏫"),
 );
 
 bot.command(
@@ -40,7 +40,7 @@ bot.command(
 
 bot.command(
     "editprofile",
-    (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
+    (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: decision })
 )
 
 const edit = new InlineKeyboard()
@@ -48,6 +48,10 @@ const edit = new InlineKeyboard()
     .text("Время встречия ", "/time")
     .text("Увлечения ", "/hobby")
     .text("Любимая кофейня", "/coffeeshop")
+
+const decision = new InlineKeyboard()
+    .text("Согласен👍", "/accept")
+    .text("Против👎", "/decline")
 
 bot.callbackQuery("/area", async (ctx) => {
     await ctx.answerCallbackQuery();
@@ -67,4 +71,14 @@ bot.callbackQuery("/hobby", async (ctx) => {
 bot.callbackQuery("/coffeeshop", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.reply("Ваша любимая кофейня");
+});
+
+bot.callbackQuery("/accept", async (ctx) =>{
+    await ctx.answerCallbackQuery();
+    await ctx.reply("Отлично!");
+});
+
+bot.callbackQuery("/decline", async (ctx) =>{
+    await ctx.answerCallbackQuery();
+    await ctx.reply("Жаль... Буду искать нового собеседника")
 });
