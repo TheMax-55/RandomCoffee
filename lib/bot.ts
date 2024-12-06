@@ -75,10 +75,12 @@ bot.callbackQuery("/coffeeshop", async (ctx) => {
 
 bot.callbackQuery("/accept", async (ctx) =>{
     await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
     await ctx.reply("Отлично!");
 });
 
 bot.callbackQuery("/decline", async (ctx) =>{
     await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
     await ctx.reply("Жаль... Буду искать нового собеседника")
 });
