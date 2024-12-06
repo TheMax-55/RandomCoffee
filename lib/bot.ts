@@ -56,17 +56,22 @@ bot.command(
 
 bot.command(
     "myprofile",
-    (ctx) => ctx.reply("")
+    (ctx) => ctx.reply("Сейчас твоя анкета выглядит вот так:")
 )
 
-const edit = new InlineKeyboard()
-    .text("Имя", "/name")
-    .text("\nВозраст", "/age")
-    .text("\nРайон", "/area")
-    .text("\nВремя встречия ", "/time")
-    .text("\nУвлечения ", "/hobby")
-    columns: 2
-
+const edit = {inline_keyboard: [
+    [
+        {text: "Имя", callback_data: "/name"}, {text: "Возраст", callback_data: "/age"}
+    ],
+    [
+        {text: "Район", callback_data:" /area"}, {text: "Время встречия", callback_data: "/time"}
+    ],
+    [    
+        {text: "Увлечения", callback_data: "/hobby"}
+    ]
+],
+resize_keyboard: true
+}
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
