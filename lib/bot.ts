@@ -45,9 +45,16 @@ bot.command(
 );
 
 bot.command(
-    "createprofile", 
-        (ctx) => ctx.reply("Давайте создадим анкету."),
-);
+    "createprofile", async (ctx) => {
+        await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
+        info.name = ctx.msg.text;
+        await ctx.reply("Теперь укажите свой пол.");
+        info.gender = ctx.msg.text;
+        await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
+        info.age = Number(ctx.msg.text);
+        await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
+        info.hobby = ctx.msg.text.split(",");
+});
 
 bot.command(
     "editprofile",
@@ -56,7 +63,8 @@ bot.command(
 
 bot.command(
     "myprofile",
-    (ctx) => ctx.reply("Сейчас твоя анкета выглядит вот так:")
+    (ctx) => ctx.reply("Сейчас твоя анкета выглядит вот так:\nПривет!"+
+        `\nМеня зовут ${info.name}, мне ${info.age}, мои увлечения: ${info.hobby} `)
 )
 
 const edit = {inline_keyboard: [
@@ -72,6 +80,7 @@ const edit = {inline_keyboard: [
 ],
 resize_keyboard: true
 }
+
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
