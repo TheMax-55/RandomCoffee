@@ -44,16 +44,22 @@ bot.command(
         "\n/command5 - описание5")
 );
 
-// bot.command(
-//     "createprofile", async (ctx) => {
-//         await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
-//         info.name = ctx.msg.text;
-//         await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
-//         await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
-//         info.age = Number(ctx.msg.text);
-//         await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
-//         info.hobby = ctx.msg.text.split(",");
-// });
+bot.command(
+    "createprofile", async (ctx) => {
+        await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
+        if(ctx.msg.text!=""){
+            info.name = ctx.msg.text;
+            await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
+            if (info.gender != ""){
+            await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
+            if (ctx.msg.text != ""){
+                info.age = Number(ctx.msg.text);
+                await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
+                info.hobby = ctx.msg.text.split(",");
+                }
+            }
+        }
+});
 
 const gender = new InlineKeyboard()
     .text("Парень👨‍💼", "/man")
@@ -73,7 +79,7 @@ bot.callbackQuery("/woman", async (ctx) =>{
 
 bot.command(
     "editprofile",
-    (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: gender })
+    (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
 )
 
 bot.command(
@@ -99,37 +105,38 @@ resize_keyboard: true
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Имя");
+    await ctx.reply("Введите новое имя");
+
 });
 
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Возраст");
+    await ctx.reply("Введите нвоый возраст");
 });
 
 bot.callbackQuery("/area", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Ваш район");
+    await ctx.reply("Введите новый район");
 });
 
 bot.callbackQuery("/time", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Время встречи");
+    await ctx.reply("Введите новое время встречи");
 });
 
 bot.callbackQuery("/hobby", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Ваши увлечения");
+    await ctx.reply("Введите новые увлечения");
 });
 
 bot.callbackQuery("/coffeeshop", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Ваша любимая кофейня");
+    await ctx.reply("Введите новую кофейню");
 });
 
 const decision = new InlineKeyboard()
