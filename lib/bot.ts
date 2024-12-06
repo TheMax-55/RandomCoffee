@@ -44,20 +44,20 @@ bot.command(
         "\n/command5 - описание5")
 );
 
-bot.command(
-    "createprofile", (ctx) => {
-        ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
-        if(ctx.msg.text != ""){
-            info.name = ctx.msg.text;
-        }
-        ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
-        ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
-        if (ctx.msg.text != ""){
-            info.age = Number(ctx.msg.text);
-        }
-        ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
-        info.hobby = ctx.msg.text.split(",");
-});
+// bot.command(
+//     "createprofile", (ctx) => {
+//         ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
+//         if(ctx.msg.text != ""){
+//             info.name = ctx.msg.text;
+//         }
+//         ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
+//         ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
+//         if (ctx.msg.text != ""){
+//             info.age = Number(ctx.msg.text);
+//         }
+//         ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
+//         info.hobby = ctx.msg.text.split(",");
+// });
 
 const gender = new InlineKeyboard()
     .text("Парень👨‍💼", "/man")
