@@ -48,17 +48,33 @@ bot.command(
 //     "createprofile", async (ctx) => {
 //         await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
 //         info.name = ctx.msg.text;
-//         await ctx.reply("Теперь укажите свой пол.");
-//         info.gender = ctx.msg.text;
+//         await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
+//         
 //         await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
 //         info.age = Number(ctx.msg.text);
 //         await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
 //         info.hobby = ctx.msg.text.split(",");
 // });
 
+const gender = new InlineKeyboard()
+    .text("Парень🧍‍♂", "/man")
+    .text("Девушка🧍‍♀", "/woman")
+
+bot.callbackQuery("/man", async (ctx) =>{
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    info.gender="Парень";
+});
+
+bot.callbackQuery("/woman", async (ctx) =>{
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    info.gender="Девушка";
+});
+
 bot.command(
     "editprofile",
-    (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
+    (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: gender })
 )
 
 bot.command(
