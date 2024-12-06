@@ -47,7 +47,7 @@ bot.command(
 bot.command(
     "createprofile", async (ctx) => {
         await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
-        if(ctx.msg.text!=""){
+        if(ctx.msg.text!= undefined){
             info.name = ctx.msg.text;
             await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
             if (info.gender != ""){
