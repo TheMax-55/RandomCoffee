@@ -136,6 +136,7 @@ bot.callbackQuery("coffeeshop", async (ctx) => {
 bot.callbackQuery("nothing", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
+    await ctx.reply("🤔");
 })
 
 bot.callbackQuery("deleteprofile", async (ctx) => {
