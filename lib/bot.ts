@@ -156,7 +156,7 @@ bot.on("message", async (ctx) =>{
                 // if(info.gender!=""){
                 };
                 await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
-                info.status = "age";
+                info.status = "hobby";
                 break;
             case "age":
                 info.age = Number(ctx.msg.text);
