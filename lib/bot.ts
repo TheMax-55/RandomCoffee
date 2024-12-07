@@ -58,7 +58,7 @@ bot.command(
 bot.command(
     "createprofile", async (ctx) => {
         await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
-        info.status = "name&gender";
+        info.status = "name";
 });
 
 const gender = new InlineKeyboard()
