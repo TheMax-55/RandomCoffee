@@ -194,9 +194,9 @@ bot.on("message", async (ctx) =>{
             case "coffeeshop":
                 if (ctx.msg.text!= undefined){
                 info.coffeeshop = ctx.msg.text;
-                };
                 info.status = "time";
-                await ctx.reply("Напишите удобное время для встречи.");
+                await ctx.reply("Напишите удобное время для встречи.")
+                };
                 break;
 
             case "time":
