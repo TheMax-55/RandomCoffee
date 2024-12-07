@@ -202,7 +202,8 @@ bot.on("message", async (ctx) =>{
             case "time":
                 if (ctx.msg.text!= undefined){
                 info.time = ctx.msg.text;
-                await ctx.reply("Отлично Сейчас твоя анкета выглядит так:\n"+
+                await ctx.reply("Отлично🤩\n" +
+                    "Сейчас твоя анкета выглядит так:\n"+
                     "Привет!\n"+
                     `Меня зовут ${info.name}\n`+ 
                     // `Я ${info.gender}\n`+ 
