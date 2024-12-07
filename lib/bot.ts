@@ -151,7 +151,7 @@ bot.callbackQuery("/decline", async (ctx) =>{
     await ctx.reply("Жаль... Буду искать нового собеседника.");
 });
 
-bot.on("message:entities", async (ctx) => {
+bot.on("message", async (ctx) => {
     // Получите все сущности.
     const entities = ctx.entities();
   
