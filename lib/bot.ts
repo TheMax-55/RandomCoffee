@@ -45,11 +45,12 @@ bot.command(
 );
 
 bot.command(
-    "createprofile", async (ctx) => {
+    "createprofile", async (ctx, next) => {
         await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
-        // info.name = ctx.msg.text;
-        // await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
-        // info.name = ctx.msg.text;
+        info.name = ctx.msg.text;
+        await next;
+        await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
+        info.name = ctx.msg.text;
         // ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
         // ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
         // info.age = Number(ctx.msg.text);
@@ -151,9 +152,3 @@ bot.callbackQuery("/decline", async (ctx) =>{
     await ctx.reply("Жаль... Буду искать нового собеседника.");
 });
 
-bot.on("message", async (ctx) => {
-    // Получите все сущности.
-    const entities = ctx.entities();
-  
-    await ctx.reply(entities[0].text)
-});
