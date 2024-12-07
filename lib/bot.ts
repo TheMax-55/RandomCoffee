@@ -89,7 +89,7 @@ bot.command(
     (ctx) => {
         if (info.name!="")
         {
-        ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
+        ctx.reply("Чтобы вы хотели изменить?(работает только удаление!!!)", { reply_markup: edit })
         }
         else
         {
