@@ -85,7 +85,10 @@ bot.command(
 bot.command(
     "myprofile",
     (ctx) => ctx.reply("Сейчас твоя анкета выглядит вот так:\nПривет!\n"+
-    `Меня зовут ${info.name}, я ${info.gender}, мне ${info.age}, мои увлечения: ${info.hobby}`)
+    `Меня зовут ${info.name}\n`+ 
+    `Я ${info.gender}\n`+ 
+    `Мне ${info.age}\n`+
+    `Мои увлечения: ${info.hobby}`)
 );
 
 const edit = new InlineKeyboard()
@@ -155,7 +158,7 @@ bot.on("message", async (ctx) =>{
                 info.name = ctx.msg.text;
                 };
                 info.status = "age";
-                await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
+                await ctx.reply("Сколько Вам лет?");
                 break;
 
             case "age":
