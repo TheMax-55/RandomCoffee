@@ -28,8 +28,8 @@ bot.command(
     (ctx) => ctx.reply("Добро пожаловать👋\n"+
     "Меня зовут RandomCoffeeBot.\n"+ 
     "Что я умею❓\n"+ 
-    "Я помогу найти тебе людей для интересного общения на общие темы. А встретиться вы сможете за чашечкой в любимой кофейне☕\n"+
-    "Давайте создадим анкету, чтобы в вами могли назначить встречу.\n"+
+    "Я помогу найти вам людей для интересного общения на общие темы. А встретиться вы сможете за чашечкой в любимой кофейне☕\n"+
+    "Давайте создадим анкету, чтобы с вами могли назначить встречу.\n"+
     "Используйте команду /createprofile для создания вашей анкеты.\n"+
     "Также не забудьте прочитать правила пользования /help\n"), 
 );
@@ -69,16 +69,16 @@ bot.command(
 });
 
 const gender = new InlineKeyboard()
-    .text("Парень👨‍💼", "/man")
-    .text("Девушка👩‍💼", "/woman")
+    .text("Парень👨‍💼", "man")
+    .text("Девушка👩‍💼", "woman")
 
-bot.callbackQuery("/man", async (ctx) =>{
+bot.callbackQuery("man", async (ctx) =>{
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     info.gender="парень";
 });
 
-bot.callbackQuery("/woman", async (ctx) =>{
+bot.callbackQuery("woman", async (ctx) =>{
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     info.gender="девушка";
@@ -102,7 +102,7 @@ bot.command(
     (ctx) => {
     if (info.name!="")
     {
-    ctx.reply("Сейчас твоя анкета выглядит вот так:\nПривет!\n"+
+    ctx.reply("Сейчас ваша анкета выглядит вот так:\nПривет!\n"+
     `Меня зовут ${info.name}\n`+ 
     // `Я ${info.gender}\n`+ 
     `Мне ${info.age}\n`+
@@ -112,52 +112,52 @@ bot.command(
     }
     else
     {
-        ctx.reply("У тебя еще не создана анкета!!!");
+        ctx.reply("У вас еще не создана анкета!!!");
     }
 });
 
 const edit = new InlineKeyboard()
-    .row().text("Имя", "/name").text("Возраст", "/age")
-    .row().text("Кофейня", "/coffeeshop").text("Время встречия","/time")
-    .row().text("Увлечения", "/hobby")
-    .row().text("Удалить анкету", "/deleteprofile");
+    .row().text("Имя", "name").text("Возраст", "age")
+    .row().text("Кофейня", "coffeeshop").text("Время встречия","time")
+    .row().text("Увлечения", "hobby")
+    .row().text("Удалить анкету", "deleteprofile");
 
-bot.callbackQuery("/name", async (ctx) => {
+bot.callbackQuery("name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите новое имя.");
 });
 
-bot.callbackQuery("/age", async (ctx) => {
+bot.callbackQuery("age", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите новый возраст.");
 
 });
 
-bot.callbackQuery("/time", async (ctx) => {
+bot.callbackQuery("time", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите новое время встречи.");
 });
 
-bot.callbackQuery("/hobby", async (ctx) => {
+bot.callbackQuery("hobby", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите новые увлечения.");
 });
 
-bot.callbackQuery("/coffeeshop", async (ctx) => {
+bot.callbackQuery("coffeeshop", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите новую кофейню.");
 });
 
 const YesNo = new InlineKeyboard()
-    .text("Да", "/yes")
-    .text("Нет", "No")
+    .text("Да", "yes")
+    .text("Нет", "no")
 
-bot.callbackQuery("/yes", async (ctx) => {
+bot.callbackQuery("yes", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     info.id = 0;
@@ -171,17 +171,37 @@ bot.callbackQuery("/yes", async (ctx) => {
     await ctx.reply("Ваша анкета была удалена.");
 })
 
-bot.callbackQuery("/no", async (ctx) =>{
+bot.callbackQuery("no", async (ctx) =>{
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Хорошо. Ваша анкета не была удалена.");
 })
 
-bot.callbackQuery("/deleteprofile", async (ctx) => {
-    await ctx.answerCallbackQuery();
-    await ctx.deleteMessage();
-    await ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
+bot.callbackQuery("deleteprofile", async (ctx) => {
+    if(info.name !="")
+    {
+        await ctx.answerCallbackQuery();
+        await ctx.deleteMessage();
+        await ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
+    }
+    else
+    {
+        await ctx.reply("У вас еще не создана анкета!!!")
+    }
 });
+
+bot.command(
+    "deleteprofile",
+    (ctx) => {
+        if (info.name!="")
+        {
+            ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
+        }
+        else
+        {
+            ctx.reply("У вас еще не создана анкета!!!");
+        }
+    });
 
 const decision = new InlineKeyboard()
     .text("Согласен👍", "/accept")
