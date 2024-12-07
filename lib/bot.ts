@@ -150,11 +150,13 @@ bot.on("message", async (ctx) =>{
     if (info.status) {
         switch (info.status) {
             case "name&gender":
-                if (ctx.msg.text!= undefined)
+                if (ctx.msg.text!= undefined){
                 info.name = ctx.msg.text;
                 await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
+                if(info.gender!=""){
                 await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
                 info.status = "age";
+                }};
                 break;
             case "age":
                 info.age = Number(ctx.msg.text);
