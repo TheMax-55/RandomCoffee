@@ -82,19 +82,10 @@ bot.command(
         `\nМеня зовут ${info.name}, я ${info.gender} ,мне ${info.age}, мои увлечения: ${info.hobby}`)
 );
 
-const edit = {inline_keyboard: [
-    [
-        {text: "Имя", callback_data: "/name"}, {text: "Возраст", callback_data: "/age"}
-    ],
-    [
-        {text: "Район", callback_data:" /area"}, {text: "Время встречия", callback_data: "/time"}
-    ],
-    [    
-        {text: "Увлечения", callback_data: "/hobby"}
-    ]
-],
-resize_keyboard: true
-};
+const edit = new InlineKeyboard()
+    .row().text("Имя", "/name").text("Возраст", "/age")
+    .row().text("Район", "/area").text("Время встречия","/time")
+    .row().text("Увлечения", "/hobby");
 
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
