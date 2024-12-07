@@ -60,12 +60,12 @@ bot.command(
         if (info.name=="")
         {
             await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.")
+            info.status = "name";
         }
         else
         {
             await ctx.reply("У тебя уже создана анкета!!!");
         }
-        info.status = "name";
 });
 
 const gender = new InlineKeyboard()
