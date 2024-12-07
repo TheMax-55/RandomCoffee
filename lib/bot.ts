@@ -9,6 +9,7 @@ interface UserInfo {
     hobby: string[];
     area: string;
     time: string;
+    status : string
 }
 
 const info: UserInfo = {
@@ -18,7 +19,8 @@ const info: UserInfo = {
     age: 0,
     hobby: [],
     area: "",
-    time: ""
+    time: "",
+    status: ""
 };
 
 bot.command(
@@ -45,17 +47,9 @@ bot.command(
 );
 
 bot.command(
-    "createprofile", async (ctx, next) => {
+    "createprofile", async (ctx) => {
         await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
-        await next;
-        info.name = ctx.msg.text;
-        await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
-        info.name = ctx.msg.text;
-        // ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
-        // ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
-        // info.age = Number(ctx.msg.text);
-        // ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
-        // info.hobby = ctx.msg.text.split(",");
+        info.status = "name";
 });
 
 const gender = new InlineKeyboard()
@@ -103,13 +97,13 @@ bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите новое имя");
-
 });
 
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите нвоый возраст");
+
 });
 
 bot.callbackQuery("/area", async (ctx) => {
@@ -152,3 +146,39 @@ bot.callbackQuery("/decline", async (ctx) =>{
     await ctx.reply("Жаль... Буду искать нового собеседника.");
 });
 
+bot.on("message", async (ctx) =>{
+    if (info.status) {
+        switch (info.status) {
+            case "name":
+                if (ctx.msg.text!= undefined)
+                info.name = ctx.msg.text;
+                info.status = "gender";
+                break;
+            case "gender":
+                await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
+                info.status = "age";
+                break;
+            case "age":
+                await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
+                info.age = Number(ctx.msg.text);
+                info.status = "hobby";
+                break;
+            case "hobby":
+                await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
+                if (ctx.msg.text!= undefined){
+                info.hobby = ctx.msg.text.split(",");
+                info.status = "done";
+                }
+                break;
+            case "done":
+                await ctx.reply("Отлично🤩 Ваша анкета сейчас выглядит вот так:"+
+                    "\nПривет!"+
+                    `\nМеня зовут ${info.name}`+
+                    `\nЯ ${info.gender}` + 
+                    `\nМне ${info.age}`+ 
+                    `\nМои увлечения: ${info.hobby}`+
+                    "\n<i>Вы всегда можете изменить ее, использовав команду /editprofile<i>", { parse_mode: "HTML"}
+                )
+        }
+    }
+})
