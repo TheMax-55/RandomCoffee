@@ -102,7 +102,7 @@ bot.callbackQuery("/name", async (ctx) => {
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Введите нвоый возраст");
+    await ctx.reply("Введите новый возраст");
 
 });
 
@@ -164,7 +164,7 @@ bot.on("message", async (ctx) =>{
                 info.age = Number(ctx.msg.text);
                 info.status = "hobby";
                 await ctx.reply(info.status)
-                await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
+                await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>.");
                 break;
 
             case "hobby":
