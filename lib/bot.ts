@@ -154,8 +154,8 @@ bot.callbackQuery("coffeeshop", async (ctx) => {
 });
 
 const YesNo = new InlineKeyboard()
-    .text("Да", "yes")
-    .text("Нет", "no")
+    .text("Да✅", "yes")
+    .text("Нет❌", "no")
 
 bot.callbackQuery("yes", async (ctx) => {
     await ctx.answerCallbackQuery();
