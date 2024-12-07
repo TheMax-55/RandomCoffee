@@ -82,7 +82,7 @@ bot.command(
     if (info.name!=""){
     ctx.reply("Сейчас ваша анкета выглядит вот так:\nПривет!\n"+
     `Меня зовут ${info.name}\n`+ 
-    // `Я ${info.gender}\n`+ 
+    `Я ${info.gender}\n`+ 
     `Мне ${info.age}\n`+
     `Мои увлечения: ${info.hobby}\n`+
     `Моя любимая кофейня: ${info.coffeeshop}\n`+
@@ -212,14 +212,15 @@ bot.on("message", async (ctx) =>{
 
             case "createAge":
                 info.age = Number(ctx.msg.text);
-                info.status = "createHobby";
+                info.status = "createGender";
                 await ctx.reply("Вы *парень* или *девушка*?", { parse_mode: "MarkdownV2" });
                 break;
             
-            case "gender":
+            case "createGender":
                 if (ctx.msg.text!=undefined){
                     if ((ctx.msg.text).toLowerCase() == "парень" || (ctx.msg.text).toLowerCase() == "девушка"){
                         info.gender = (ctx.msg.text).toLowerCase();
+                        info.status = "createHobby";
                         await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
                     }
                 }
@@ -248,7 +249,7 @@ bot.on("message", async (ctx) =>{
                         "Ваша анкета выглядит так:\n"+
                         "Привет!\n"+
                         `Меня зовут ${info.name}\n`+ 
-                        // `Я ${info.gender}\n`+ 
+                        `Я ${info.gender}\n`+ 
                         `Мне ${info.age}\n`+
                         `Мои увлечения: ${info.hobby}\n`+
                         `Моя любимая кофейня: ${info.coffeeshop}\n`+
