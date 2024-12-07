@@ -159,15 +159,15 @@ bot.on("message", async (ctx) =>{
                 // await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
                 // if(info.gender!=""){
                 };
-                await ctx.reply("Не забудем о возрасте. Сколько Вам лет?" + info.status);
                 info.status = "age";
+                await ctx.reply("Не забудем о возрасте. Сколько Вам лет?" + info.status);
                 await ctx.reply(info.status)
                 break;
 
             case "age":
                 info.age = Number(ctx.msg.text);
-                await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
                 info.status = "hobby";
+                await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
                 break;
 
             case "hobby":
