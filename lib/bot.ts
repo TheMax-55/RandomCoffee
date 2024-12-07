@@ -111,7 +111,7 @@ bot.command(
 const edit = new InlineKeyboard()
     .row().text("Имя", "name").text("Возраст", "age")
     .row().text("Кофейня", "coffeeshop").text("Время встречия","time")
-    .row().text("Увлечения", "hobby")
+    .row().text("Увлечения", "hobby").text("Ничего", "nothing")
     .row().text("Удалить анкету", "deleteprofile");
 
 bot.callbackQuery("name", async (ctx) => {
@@ -149,6 +149,31 @@ bot.callbackQuery("coffeeshop", async (ctx) => {
     info.status = "editCoffeeshop";
 });
 
+bot.callbackQuery("nothing", async (ctx) => {
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+})
+
+bot.callbackQuery("deleteprofile", async (ctx) => {
+    if(info.name !="") {
+        await ctx.answerCallbackQuery();
+        await ctx.deleteMessage();
+        await ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
+    } else {
+        await ctx.reply("⚠️У вас ещё не создана анкета⚠️")
+    }
+});
+
+bot.command(
+    "deleteprofile",
+    (ctx) => {
+        if (info.name!=""){
+            ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
+        } else {
+            ctx.reply("⚠️У вас ещё не создана анкета⚠️");
+        }
+    });
+
 const YesNo = new InlineKeyboard()
     .text("Да✅", "yes")
     .text("Нет❌", "no")
@@ -172,26 +197,6 @@ bot.callbackQuery("no", async (ctx) => {
     await ctx.deleteMessage();
     await ctx.reply("Хорошо. Ваша анкета не была удалена.");
 })
-
-bot.callbackQuery("deleteprofile", async (ctx) => {
-    if(info.name !="") {
-        await ctx.answerCallbackQuery();
-        await ctx.deleteMessage();
-        await ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
-    } else {
-        await ctx.reply("⚠️У вас ещё не создана анкета⚠️")
-    }
-});
-
-bot.command(
-    "deleteprofile",
-    (ctx) => {
-        if (info.name!=""){
-            ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
-        } else {
-            ctx.reply("⚠️У вас ещё не создана анкета⚠️");
-        }
-    });
 
 const decision = new InlineKeyboard()
     .text("Согласен👍", "/accept")
@@ -298,9 +303,11 @@ bot.on("message", async (ctx) =>{
                     ctx.reply("Время для встречи было изменено.")
                 }
                 break;
+
             // case "gender":
             //     await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
-            //     break;   
+            //     break;
+
             default:
                 break;   
         }
