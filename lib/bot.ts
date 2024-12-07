@@ -47,18 +47,12 @@ bot.command(
 bot.command(
     "createprofile", async (ctx) => {
         await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
-        info.name = ctx.msg.text;
-        bot.hears(info.name, async (ctx) => {
-            await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
-        });
-        // if(ctx.msg.text != ""){
-        //     info.name = ctx.msg.text;
-        // }
+        // info.name = ctx.msg.text;
+        // await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
+        // info.name = ctx.msg.text;
         // ctx.reply("Теперь укажите свой пол.", { reply_markup: gender });
         // ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
-        // if (ctx.msg.text != ""){
-        //     info.age = Number(ctx.msg.text);
-        // }
+        // info.age = Number(ctx.msg.text);
         // ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
         // info.hobby = ctx.msg.text.split(",");
 });
@@ -155,4 +149,12 @@ bot.callbackQuery("/decline", async (ctx) =>{
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Жаль... Буду искать нового собеседника.");
+});
+
+bot.on("message:entities", async (ctx) => {
+    // Получите все сущности.
+    const entities = ctx.entities();
+  
+    // Получите текст первой сущности.
+    entities[0].text;
 });
