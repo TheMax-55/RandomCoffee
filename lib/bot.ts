@@ -57,7 +57,14 @@ bot.command(
 
 bot.command(
     "createprofile", async (ctx) => {
-        await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
+        if (info.name=="")
+        {
+            await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.")
+        }
+        else
+        {
+            await ctx.reply("У тебя уже создана анкета!!!");
+        }
         info.status = "name";
 });
 
@@ -81,8 +88,9 @@ bot.command(
     "editprofile",
     (ctx) => {
         if (info.name!="")
-            {
-        ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })}
+        {
+        ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
+        }
         else
         {
             ctx.reply("У тебя еще не создана анкета!!!");
@@ -93,15 +101,15 @@ bot.command(
     "myprofile",
     (ctx) => {
     if (info.name!="")
-        {
+    {
     ctx.reply("Сейчас твоя анкета выглядит вот так:\nПривет!\n"+
     `Меня зовут ${info.name}\n`+ 
     // `Я ${info.gender}\n`+ 
     `Мне ${info.age}\n`+
     `Мои увлечения: ${info.hobby}\n`+
     `Моя любимая кофейня: ${info.coffeeshop}\n`+
-    `Удобное время для встречи: ${info.time}\n`
-)}
+    `Удобное время для встречи: ${info.time}\n`)
+    }
     else
     {
         ctx.reply("У тебя еще не создана анкета!!!");
