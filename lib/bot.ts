@@ -187,7 +187,7 @@ bot.on("message", async (ctx) =>{
             case "hobby":
                 if (ctx.msg.text!= undefined){
                 info.hobby = ctx.msg.text.split(",");
-                info.status = "coffeshop";}
+                info.status = "coffeeshop";}
                 await ctx.reply("Теперь укажите адрес своей любимой кофейни.")
                 break;
 
