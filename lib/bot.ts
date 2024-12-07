@@ -49,7 +49,7 @@ bot.command(
 bot.command(
     "createprofile", async (ctx) => {
         await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
-        info.status = "name";
+        info.status = "name&gender";
 });
 
 const gender = new InlineKeyboard()
@@ -152,19 +152,18 @@ bot.on("message", async (ctx) =>{
             case "name&gender":
                 if (ctx.msg.text!= undefined)
                 info.name = ctx.msg.text;
-                info.status = "age";
                 await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
                 await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
+                info.status = "age";
                 break;
             case "age":
                 info.age = Number(ctx.msg.text);
-                info.status = "hobby";
                 await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
+                info.status = "hobby";
                 break;
             case "hobby":
                 if (ctx.msg.text!= undefined){
                 info.hobby = ctx.msg.text.split(",");
-                info.status = "done";
                 await ctx.reply("Отлично🤩 Ваша анкета сейчас выглядит вот так:"+
                     "\nПривет!"+
                     `\nМеня зовут ${info.name}`+
