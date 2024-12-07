@@ -157,13 +157,13 @@ bot.on("message", async (ctx) =>{
                 // if(info.gender!=""){
                 };
                 info.status = "age";
-                await ctx.reply("Не забудем о возрасте. Сколько Вам лет?" + info.status);
+                await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
                 break;
 
             case "age":
-                await ctx.reply(info.status)
                 info.age = Number(ctx.msg.text);
                 info.status = "hobby";
+                await ctx.reply(info.status)
                 await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
                 break;
 
