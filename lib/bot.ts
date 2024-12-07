@@ -20,7 +20,7 @@ const info: UserInfo = {
     hobby: [],
     area: "",
     time: "",
-    status: "name&gender"
+    status: ""
 };
 
 bot.command(
@@ -51,8 +51,8 @@ bot.command(
 
 bot.command(
     "createprofile", async (ctx) => {
-        await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя." + info.status);
-        // info.status = "name&gender";
+        await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
+        info.status = "name&gender";
 });
 
 const gender = new InlineKeyboard()
