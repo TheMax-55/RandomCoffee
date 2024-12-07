@@ -94,7 +94,7 @@ bot.command(
 
 const edit = new InlineKeyboard()
     .row().text("Имя", "name").text("Возраст", "age")
-    .row().text("Кофейня", "coffeeshop").text("Время встречия","time")
+    .row().text("Кофейня", "coffeeshop").text("Время встречи","time")
     .row().text("Увлечения", "hobby").text("Ничего", "nothing")
     .row().text("Удалить анкету", "deleteprofile");
 
