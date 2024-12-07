@@ -84,12 +84,20 @@ bot.command(
 
 bot.command(
     "myprofile",
-    (ctx) => ctx.reply("Сейчас твоя анкета выглядит вот так:\nПривет!\n"+
+    (ctx) => {
+    if (info.gender!="")
+        {
+    ctx.reply("Сейчас твоя анкета выглядит вот так:\nПривет!\n"+
     `Меня зовут ${info.name}\n`+ 
     `Я ${info.gender}\n`+ 
     `Мне ${info.age}\n`+
-    `Мои увлечения: ${info.hobby}`)
-);
+    `Мои увлечения: ${info.hobby}`
+)}
+    else
+    {
+        ctx.reply("У тебя еще не создана анкета");
+    }
+});
 
 const edit = new InlineKeyboard()
     .row().text("Имя", "/name").text("Возраст", "/age")
