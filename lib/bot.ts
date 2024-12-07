@@ -217,9 +217,11 @@ bot.on("message", async (ctx) =>{
                 break;
             
             case "gender":
-                if (ctx.msg.text=="Парень" || ctx.msg.text=="Девушка"){
-                    info.gender = ctx.msg.text;
-                    await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
+                if (ctx.msg.text!=undefined){
+                    if ((ctx.msg.text).toLowerCase() == "парень" || (ctx.msg.text).toLowerCase() == "девушка"){
+                        info.gender = (ctx.msg.text).toLowerCase();
+                        await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
+                    }
                 }
                 break;
 
