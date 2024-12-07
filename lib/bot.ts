@@ -150,11 +150,9 @@ bot.on("message", async (ctx) =>{
     if (info.status) {
         switch (info.status) {
 
-            case "name&gender":
+            case "name":
                 if (ctx.msg.text!= undefined){
                 info.name = ctx.msg.text;
-                // await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
-                // if(info.gender!=""){
                 };
                 info.status = "age";
                 await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
@@ -169,14 +167,11 @@ bot.on("message", async (ctx) =>{
             case "hobby":
                 if (ctx.msg.text!= undefined){
                 info.hobby = ctx.msg.text.split(",");
-                await ctx.reply("Отлично🤩 Ваша анкета сейчас выглядит вот так:\n"+
-                    "Привет!\n"+
-                    `Меня зовут ${info.name}\n`+
-                    `Я ${info.gender}\n` + 
-                    `Мне ${info.age}\n`+ 
-                    `Мои увлечения: ${info.hobby}\n`+
-                    "Вы всегда можете изменить её, использовав команду /editprofile\n");
-                }
+                info.status = "gender";}
+                break;
+
+            case "gender":
+                await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
                 break;   
             default:
                 break;   
