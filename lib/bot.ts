@@ -202,7 +202,14 @@ bot.on("message", async (ctx) =>{
             case "time":
                 if (ctx.msg.text!= undefined){
                 info.time = ctx.msg.text;
-                };
+                await ctx.reply("Отлично Сейчас твоя анкета выглядит так:\n"+
+                    "Привет!\n"+
+                    `Меня зовут ${info.name}\n`+ 
+                    // `Я ${info.gender}\n`+ 
+                    `Мне ${info.age}\n`+
+                    `Мои увлечения: ${info.hobby}\n`+
+                    `Моя любимая кофейня: ${info.coffeeshop}\n`+
+                    `Удобное время для встречи: ${info.time}\n`)};
                 break;
 
             // case "gender":
