@@ -7,7 +7,7 @@ interface UserInfo {
     gender: string;
     age: number;
     hobby: string[];
-    area: string;
+    coffeeshop: string;
     time: string;
     status : string
 }
@@ -18,7 +18,7 @@ const info: UserInfo = {
     gender: "",
     age: 0,
     hobby: [],
-    area: "",
+    coffeeshop: "",
     time: "",
     status: ""
 };
@@ -98,7 +98,9 @@ bot.command(
     `Меня зовут ${info.name}\n`+ 
     // `Я ${info.gender}\n`+ 
     `Мне ${info.age}\n`+
-    `Мои увлечения: ${info.hobby}`
+    `Мои увлечения: ${info.hobby}\n`+
+    `Моя любимая кофейня: ${info.coffeeshop}\n`+
+    `Удобное время для встречи: ${info.time}\n`
 )}
     else
     {
@@ -185,7 +187,22 @@ bot.on("message", async (ctx) =>{
             case "hobby":
                 if (ctx.msg.text!= undefined){
                 info.hobby = ctx.msg.text.split(",");
-                info.status = "gender";}
+                info.status = "coffeshop";}
+                await ctx.reply("Теперь укажите адрес своей любимой кофейни.")
+                break;
+
+            case "coffeeshop":
+                if (ctx.msg.text!= undefined){
+                info.coffeeshop = ctx.msg.text;
+                };
+                info.status = "time";
+                await ctx.reply("Напишите удобное время для встречи.");
+                break;
+
+            case "time":
+                if (ctx.msg.text!= undefined){
+                info.time = ctx.msg.text;
+                };
                 break;
 
             // case "gender":
