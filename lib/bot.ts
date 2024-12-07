@@ -53,7 +53,7 @@ bot.command(
     "🇷🇺Любой контент, запрещённый на территории Российской Федерации\n"+
     "➤Любой контент, запрещённый [правилами Telegram](https://telegram.org/tos/ru/)\n"+
     "✅Разрешено:\n"+
-    "✉️Искать людей для общения:)", { parse_mode: "Markdown" } ),
+    "✉️Искать людей для общения:)", { parse_mode: "MarkdownV2" } ),
 );
 
 bot.command(
@@ -64,22 +64,6 @@ bot.command(
         } else {
             await ctx.reply("⚠️У вас уже создана анкета⚠️");
         }
-});
-
-const gender = new InlineKeyboard()
-    .text("Парень👨‍💼", "man")
-    .text("Девушка👩‍💼", "woman")
-
-bot.callbackQuery("man", async (ctx) => {
-    await ctx.answerCallbackQuery();
-    await ctx.deleteMessage();
-    info.gender="парень";
-});
-
-bot.callbackQuery("woman", async (ctx) => {
-    await ctx.answerCallbackQuery();
-    await ctx.deleteMessage();
-    info.gender="девушка";
 });
 
 bot.command(
@@ -229,7 +213,14 @@ bot.on("message", async (ctx) =>{
             case "createAge":
                 info.age = Number(ctx.msg.text);
                 info.status = "createHobby";
-                await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
+                await ctx.reply("Вы *парень* или *девушка*?", { parse_mode: "MarkdownV2" });
+                break;
+            
+            case "gender":
+                if (ctx.msg.text=="Парень" || ctx.msg.text=="Девушка"){
+                    info.gender = ctx.msg.text;
+                    await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
+                }
                 break;
 
             case "createHobby":
@@ -303,10 +294,6 @@ bot.on("message", async (ctx) =>{
                     ctx.reply("Время для встречи было изменено.")
                 }
                 break;
-
-            // case "gender":
-            //     await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
-            //     break;
 
             default:
                 break;   
