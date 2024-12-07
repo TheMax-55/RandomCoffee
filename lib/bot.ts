@@ -155,8 +155,8 @@ bot.on("message", async (ctx) =>{
                 await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
                 if(info.gender!=""){
                 await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
-                info.status = "age";
                 }};
+                info.status = "age";
                 break;
             case "age":
                 info.age = Number(ctx.msg.text);
