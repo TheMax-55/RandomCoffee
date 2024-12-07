@@ -149,14 +149,11 @@ bot.callbackQuery("/decline", async (ctx) =>{
 bot.on("message", async (ctx) =>{
     if (info.status) {
         switch (info.status) {
-            case "name":
+            case "name&gender":
                 if (ctx.msg.text!= undefined)
                 info.name = ctx.msg.text;
-                info.status = "gender";
-                break;
-            case "gender":
-                await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
                 info.status = "age";
+                await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
                 await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
                 break;
             case "age":
@@ -168,9 +165,6 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text!= undefined){
                 info.hobby = ctx.msg.text.split(",");
                 info.status = "done";
-                }
-                break;
-            case "done":
                 await ctx.reply("Отлично🤩 Ваша анкета сейчас выглядит вот так:"+
                     "\nПривет!"+
                     `\nМеня зовут ${info.name}`+
@@ -179,6 +173,8 @@ bot.on("message", async (ctx) =>{
                     `\nМои увлечения: ${info.hobby}`+
                     "\n<i>Вы всегда можете изменить ее, использовав команду /editprofile<i>", { parse_mode: "HTML"}
                 )
+                }
+                break;      
         }
     }
 })
