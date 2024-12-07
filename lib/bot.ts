@@ -9,7 +9,7 @@ interface UserInfo {
     hobby: string[];
     coffeeshop: string;
     time: string;
-    status : string
+    status : string;
 }
 
 const info: UserInfo = {
@@ -58,13 +58,10 @@ bot.command(
 
 bot.command(
     "createprofile", async (ctx) => {
-        if (info.name=="")
-        {
+        if (info.name==""){
             await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.")
-            info.status = "name";
-        }
-        else
-        {
+            info.status = "createName";
+        } else {
             await ctx.reply("⚠️У вас уже создана анкета⚠️");
         }
 });
@@ -73,13 +70,13 @@ const gender = new InlineKeyboard()
     .text("Парень👨‍💼", "man")
     .text("Девушка👩‍💼", "woman")
 
-bot.callbackQuery("man", async (ctx) =>{
+bot.callbackQuery("man", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     info.gender="парень";
 });
 
-bot.callbackQuery("woman", async (ctx) =>{
+bot.callbackQuery("woman", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     info.gender="девушка";
@@ -88,12 +85,9 @@ bot.callbackQuery("woman", async (ctx) =>{
 bot.command(
     "editprofile",
     (ctx) => {
-        if (info.name!="")
-        {
+        if (info.name!="") {
         ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
-        }
-        else
-        {
+        } else {
             ctx.reply("⚠️У вас ещё не создана анкета⚠️");
         }
     });
@@ -101,8 +95,7 @@ bot.command(
 bot.command(
     "myprofile",
     (ctx) => {
-    if (info.name!="")
-    {
+    if (info.name!=""){
     ctx.reply("Сейчас ваша анкета выглядит вот так:\nПривет!\n"+
     `Меня зовут ${info.name}\n`+ 
     // `Я ${info.gender}\n`+ 
@@ -110,9 +103,7 @@ bot.command(
     `Мои увлечения: ${info.hobby}\n`+
     `Моя любимая кофейня: ${info.coffeeshop}\n`+
     `Удобное время для встречи: ${info.time}\n`)
-    }
-    else
-    {
+    } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
     }
 });
@@ -127,31 +118,35 @@ bot.callbackQuery("name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите новое имя.");
+    info.status = "editName";
 });
 
 bot.callbackQuery("age", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите новый возраст.");
-
+    info.status = "editAge";
 });
 
 bot.callbackQuery("time", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите новое время встречи.");
+    info.status = "editTime";
 });
 
 bot.callbackQuery("hobby", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите новые увлечения.");
+    info.status = "editHobby";
 });
 
 bot.callbackQuery("coffeeshop", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите новую кофейню.");
+    info.status = "editCoffeeshop";
 });
 
 const YesNo = new InlineKeyboard()
@@ -172,21 +167,18 @@ bot.callbackQuery("yes", async (ctx) => {
     await ctx.reply("Ваша анкета была удалена.");
 })
 
-bot.callbackQuery("no", async (ctx) =>{
+bot.callbackQuery("no", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Хорошо. Ваша анкета не была удалена.");
 })
 
 bot.callbackQuery("deleteprofile", async (ctx) => {
-    if(info.name !="")
-    {
+    if(info.name !="") {
         await ctx.answerCallbackQuery();
         await ctx.deleteMessage();
         await ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
-    }
-    else
-    {
+    } else {
         await ctx.reply("⚠️У вас ещё не создана анкета⚠️")
     }
 });
@@ -194,12 +186,9 @@ bot.callbackQuery("deleteprofile", async (ctx) => {
 bot.command(
     "deleteprofile",
     (ctx) => {
-        if (info.name!="")
-        {
+        if (info.name!=""){
             ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
-        }
-        else
-        {
+        } else {
             ctx.reply("⚠️У вас ещё не создана анкета⚠️");
         }
     });
@@ -224,50 +213,86 @@ bot.on("message", async (ctx) =>{
     if (info.status) {
         switch (info.status) {
 
-            case "name":
+            case "createName":
                 if (ctx.msg.text!= undefined){
-                info.name = ctx.msg.text;
+                    info.name = ctx.msg.text;
+                    info.status = "createAge";
+                    await ctx.reply("Сколько вам лет?");
                 };
-                info.status = "age";
-                await ctx.reply("Сколько вам лет?");
                 break;
 
-            case "age":
+            case "createAge":
                 info.age = Number(ctx.msg.text);
-                info.status = "hobby";
+                info.status = "createHobby";
                 await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
                 break;
 
-            case "hobby":
+            case "createHobby":
                 if (ctx.msg.text!= undefined){
-                info.hobby = ctx.msg.text.split(",");
-                info.status = "coffeeshop";}
-                await ctx.reply("Теперь укажите адрес вашей любимой кофейни.")
+                    info.hobby = ctx.msg.text.split(",");
+                    info.status = "createCoffeeshop";
+                    await ctx.reply("Теперь укажите адрес вашей любимой кофейни.");
+                }
                 break;
 
-            case "coffeeshop":
+            case "createCoffeeshop":
                 if (ctx.msg.text!= undefined){
-                info.coffeeshop = ctx.msg.text;
+                    info.coffeeshop = ctx.msg.text;
+                    info.status = "createTime";
                 };
-                info.status = "time";
-                await ctx.reply("Напишите удобное время для встречи.")
+                await ctx.reply("Напишите удобное время для встречи.");
                 break;
 
-            case "time":
+            case "createTime":
                 if (ctx.msg.text!= undefined){
-                info.time = ctx.msg.text;
-                await ctx.reply("Отлично🤩\n" +
-                    "Твоя анкета выглядит так:\n"+
-                    "Привет!\n"+
-                    `Меня зовут ${info.name}\n`+ 
-                    // `Я ${info.gender}\n`+ 
-                    `Мне ${info.age}\n`+
-                    `Мои увлечения: ${info.hobby}\n`+
-                    `Моя любимая кофейня: ${info.coffeeshop}\n`+
-                    `Удобное время для встречи: ${info.time}\n`)};
-                info.status = "done"
+                    info.time = ctx.msg.text;
+                    await ctx.reply("Отлично🤩\n" +
+                        "Ваша анкета выглядит так:\n"+
+                        "Привет!\n"+
+                        `Меня зовут ${info.name}\n`+ 
+                        // `Я ${info.gender}\n`+ 
+                        `Мне ${info.age}\n`+
+                        `Мои увлечения: ${info.hobby}\n`+
+                        `Моя любимая кофейня: ${info.coffeeshop}\n`+
+                        `Удобное время для встречи: ${info.time}\n`);
+                        info.status = "done";
+                };
                 break;
-
+            
+            case "editName":
+                if (ctx.msg.text!= undefined){
+                    info.name = ctx.msg.text;
+                    info.status = "done";
+                };
+                break;
+            
+            case "editAge":
+                if (ctx.msg.text!= undefined){
+                    info.age = Number(ctx.msg.text);
+                    info.status = "done";
+                };
+                break;
+            
+            case "editHobby":
+                if (ctx.msg.text!= undefined){
+                    info.hobby = ctx.msg.text.split(",");
+                    info.status = "done";
+                }
+                    break;
+            
+            case "editCoffeeshop":
+                if (ctx.msg.text!= undefined){
+                    info.coffeeshop = ctx.msg.text;
+                    info.status = "done";
+                };
+                break;
+            
+            case "editTime":
+                if (ctx.msg.text!= undefined){
+                    info.time = ctx.msg.text;
+                    info.status = "done";
+                }
+                break;
             // case "gender":
             //     await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
             //     break;   
