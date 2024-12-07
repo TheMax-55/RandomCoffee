@@ -48,7 +48,7 @@ bot.command(
 
 bot.command(
     "createprofile", async (ctx) => {
-        await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
+        await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя." + info.status);
         info.status = "name&gender";
 });
 
@@ -156,8 +156,9 @@ bot.on("message", async (ctx) =>{
                 // await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
                 // if(info.gender!=""){
                 };
-                await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
+                await ctx.reply("Не забудем о возрасте. Сколько Вам лет?" + info.status);
                 info.status = "age";
+                await ctx.reply(info.status)
                 break;
 
             case "age":
