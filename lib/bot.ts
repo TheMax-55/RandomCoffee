@@ -20,7 +20,7 @@ const info: UserInfo = {
     hobby: [],
     area: "",
     time: "",
-    status: "age"
+    status: ""
 };
 
 bot.command(
