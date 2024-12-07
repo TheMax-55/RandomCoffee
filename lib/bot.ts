@@ -93,7 +93,7 @@ bot.command(
         }
         else
         {
-            ctx.reply("⚠️У вас еще не создана анкета⚠️");
+            ctx.reply("⚠️У вас ещё не создана анкета⚠️");
         }
     });
 
@@ -112,7 +112,7 @@ bot.command(
     }
     else
     {
-        ctx.reply("⚠️У вас еще не создана анкета⚠️");
+        ctx.reply("⚠️У вас ещё не создана анкета⚠️");
     }
 });
 
@@ -186,7 +186,7 @@ bot.callbackQuery("deleteprofile", async (ctx) => {
     }
     else
     {
-        await ctx.reply("⚠️У вас еще не создана анкета⚠️")
+        await ctx.reply("⚠️У вас ещё не создана анкета⚠️")
     }
 });
 
@@ -199,7 +199,7 @@ bot.command(
         }
         else
         {
-            ctx.reply("⚠️У вас еще не создана анкета⚠️");
+            ctx.reply("⚠️У вас ещё не создана анкета⚠️");
         }
     });
 
@@ -228,20 +228,20 @@ bot.on("message", async (ctx) =>{
                 info.name = ctx.msg.text;
                 };
                 info.status = "age";
-                await ctx.reply("Сколько Вам лет?");
+                await ctx.reply("Сколько вам лет?");
                 break;
 
             case "age":
                 info.age = Number(ctx.msg.text);
                 info.status = "hobby";
-                await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их через запятую.");
+                await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
                 break;
 
             case "hobby":
                 if (ctx.msg.text!= undefined){
                 info.hobby = ctx.msg.text.split(",");
                 info.status = "coffeeshop";}
-                await ctx.reply("Теперь укажите адрес своей любимой кофейни.")
+                await ctx.reply("Теперь укажите адрес вашей любимой кофейни.")
                 break;
 
             case "coffeeshop":
