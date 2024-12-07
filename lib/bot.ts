@@ -118,18 +118,17 @@ bot.command(
 
 const edit = new InlineKeyboard()
     .row().text("Имя", "/name").text("Возраст", "/age")
-    .row().text("Район", "/area").text("Время встречия","/time")
-    .row().text("Увлечения", "/hobby").text("Кофейня", "/coffeeshop")
+    .row().text("Кофейня", "/coffeeshop").text("Время встречия","/time")
+    .row().text("Увлечения", "/hobby")
     .row().text("Удалить анкету", "/deleteprofile");
 
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    info.status = "name"
     await ctx.reply("Введите новое имя.");
 });
 
-bot.callbackQuery("/name", async (ctx) => {
+bot.callbackQuery("/age", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Введите новый возраст.");
