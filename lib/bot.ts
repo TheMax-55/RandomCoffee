@@ -125,6 +125,7 @@ const edit = new InlineKeyboard()
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
+    info.status = "name"
     await ctx.reply("Введите новое имя.");
 });
 
@@ -244,6 +245,7 @@ bot.on("message", async (ctx) =>{
                     `Мои увлечения: ${info.hobby}\n`+
                     `Моя любимая кофейня: ${info.coffeeshop}\n`+
                     `Удобное время для встречи: ${info.time}\n`)};
+                info.status = "done"
                 break;
 
             // case "gender":
