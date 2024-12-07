@@ -155,6 +155,5 @@ bot.on("message:entities", async (ctx) => {
     // Получите все сущности.
     const entities = ctx.entities();
   
-    // Получите текст первой сущности.
-    entities[0].text;
+    await ctx.reply(entities[0].text)
 });
