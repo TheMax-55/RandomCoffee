@@ -89,13 +89,13 @@ bot.command(
         {
     ctx.reply("Сейчас твоя анкета выглядит вот так:\nПривет!\n"+
     `Меня зовут ${info.name}\n`+ 
-    `Я ${info.gender}\n`+ 
+    // `Я ${info.gender}\n`+ 
     `Мне ${info.age}\n`+
     `Мои увлечения: ${info.hobby}`
 )}
     else
     {
-        ctx.reply("У тебя еще не создана анкета");
+        ctx.reply("У тебя еще не создана анкета!!!");
     }
 });
 
@@ -181,9 +181,9 @@ bot.on("message", async (ctx) =>{
                 info.status = "gender";}
                 break;
 
-            case "gender":
-                await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
-                break;   
+            // case "gender":
+            //     await ctx.reply("Теперь укажите свой пол.", { reply_markup: gender })
+            //     break;   
             default:
                 break;   
         }
