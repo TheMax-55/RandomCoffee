@@ -163,8 +163,7 @@ bot.on("message", async (ctx) =>{
             case "age":
                 info.age = Number(ctx.msg.text);
                 info.status = "hobby";
-                await ctx.reply(info.status)
-                await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>.");
+                await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их через запятую.");
                 break;
 
             case "hobby":
@@ -176,7 +175,7 @@ bot.on("message", async (ctx) =>{
                     `Я ${info.gender}\n` + 
                     `Мне ${info.age}\n`+ 
                     `Мои увлечения: ${info.hobby}\n`+
-                    "<i>Вы всегда можете изменить её, использовав команду /editprofile<i>\n", { parse_mode: "HTML"});
+                    "Вы всегда можете изменить её, использовав команду /editprofile\n");
                 }
                 break;   
             default:
