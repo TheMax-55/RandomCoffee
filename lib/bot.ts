@@ -263,6 +263,7 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text!= undefined){
                     info.name = ctx.msg.text;
                     info.status = "done";
+                    ctx.reply("Ваше имя было изменено.")
                 };
                 break;
             
@@ -270,6 +271,7 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text!= undefined){
                     info.age = Number(ctx.msg.text);
                     info.status = "done";
+                    ctx.reply("Ваш возраст был изменён.")
                 };
                 break;
             
@@ -277,6 +279,7 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text!= undefined){
                     info.hobby = ctx.msg.text.split(",");
                     info.status = "done";
+                    ctx.reply("Ваше увлечения были изменены.")
                 }
                     break;
             
@@ -284,6 +287,7 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text!= undefined){
                     info.coffeeshop = ctx.msg.text;
                     info.status = "done";
+                    ctx.reply("Ваша любимая кофейня была изменена.")
                 };
                 break;
             
@@ -291,6 +295,7 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text!= undefined){
                     info.time = ctx.msg.text;
                     info.status = "done";
+                    ctx.reply("Время для встречи было изменено.")
                 }
                 break;
             // case "gender":
