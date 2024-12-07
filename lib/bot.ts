@@ -119,43 +119,68 @@ bot.command(
 const edit = new InlineKeyboard()
     .row().text("Имя", "/name").text("Возраст", "/age")
     .row().text("Район", "/area").text("Время встречия","/time")
-    .row().text("Увлечения", "/hobby");
+    .row().text("Увлечения", "/hobby").text("Кофейня", "/coffeeshop")
+    .row().text("Удалить анкету", "/deleteprofile");
 
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Введите новое имя");
+    await ctx.reply("Введите новое имя.");
 });
 
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Введите новый возраст");
+    await ctx.reply("Введите новый возраст.");
 
-});
-
-bot.callbackQuery("/area", async (ctx) => {
-    await ctx.answerCallbackQuery();
-    await ctx.deleteMessage();
-    await ctx.reply("Введите новый район");
 });
 
 bot.callbackQuery("/time", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Введите новое время встречи");
+    await ctx.reply("Введите новое время встречи.");
 });
 
 bot.callbackQuery("/hobby", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Введите новые увлечения");
+    await ctx.reply("Введите новые увлечения.");
 });
 
 bot.callbackQuery("/coffeeshop", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Введите новую кофейню");
+    await ctx.reply("Введите новую кофейню.");
+});
+
+const YesNo = new InlineKeyboard()
+    .text("Да", "/yes")
+    .text("Нет", "No")
+
+bot.callbackQuery("/yes", async (ctx) => {
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    info.id = 0;
+    info.name = "";
+    info.gender = "";
+    info.age = 0;
+    info.hobby = [];
+    info.coffeeshop = "";
+    info.time = "";
+    info.status = "";
+    await ctx.reply("Ваша анкета была удалена.");
+})
+
+bot.callbackQuery("/no", async (ctx) =>{
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    await ctx.reply("Хорошо. Ваша анкета не была удалена.");
+})
+
+bot.callbackQuery("/deleteprofile", async (ctx) => {
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    await ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
 });
 
 const decision = new InlineKeyboard()
