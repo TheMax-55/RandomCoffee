@@ -49,7 +49,7 @@ bot.command(
 bot.command(
     "createprofile", async (ctx) => {
         await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
-        info.status = "hobby";
+        info.status = "name&gender";
 });
 
 const gender = new InlineKeyboard()
@@ -71,13 +71,13 @@ bot.callbackQuery("/woman", async (ctx) =>{
 bot.command(
     "editprofile",
     (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
-)
+);
 
 bot.command(
     "myprofile",
     (ctx) => ctx.reply("Сейчас твоя анкета выглядит вот так:\nПривет!"+
-        `\nМеня зовут ${info.name}, я ${info.gender} ,мне ${info.age}, мои увлечения: ${info.hobby} `)
-)
+        `\nМеня зовут ${info.name}, я ${info.gender} ,мне ${info.age}, мои увлечения: ${info.hobby}`)
+);
 
 const edit = {inline_keyboard: [
     [
@@ -91,7 +91,7 @@ const edit = {inline_keyboard: [
     ]
 ],
 resize_keyboard: true
-}
+};
 
 bot.callbackQuery("/name", async (ctx) => {
     await ctx.answerCallbackQuery();
@@ -149,6 +149,7 @@ bot.callbackQuery("/decline", async (ctx) =>{
 bot.on("message", async (ctx) =>{
     if (info.status) {
         switch (info.status) {
+
             case "name&gender":
                 if (ctx.msg.text!= undefined){
                 info.name = ctx.msg.text;
@@ -158,11 +159,13 @@ bot.on("message", async (ctx) =>{
                 await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
                 info.status = "age";
                 break;
+
             case "age":
                 info.age = Number(ctx.msg.text);
                 await ctx.reply("Хотелось бы узнать о Ваших увлечениях, перечисли их <b>через запятую<b>", { parse_mode: "HTML"});
                 info.status = "hobby";
                 break;
+
             case "hobby":
                 if (ctx.msg.text!= undefined){
                 info.hobby = ctx.msg.text.split(",");
@@ -172,10 +175,11 @@ bot.on("message", async (ctx) =>{
                     `\nЯ ${info.gender}` + 
                     `\nМне ${info.age}`+ 
                     `\nМои увлечения: ${info.hobby}`+
-                    "\n<i>Вы всегда можете изменить ее, использовав команду /editprofile<i>", { parse_mode: "HTML"}
-                )
+                    "\n<i>Вы всегда можете изменить ее, использовав команду /editprofile<i>", { parse_mode: "HTML"});
                 }
-                break;      
+                break;   
+            default:
+                break;   
         }
     }
-})
+});
