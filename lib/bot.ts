@@ -79,13 +79,20 @@ bot.callbackQuery("/woman", async (ctx) =>{
 
 bot.command(
     "editprofile",
-    (ctx) => ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
-);
+    (ctx) => {
+        if (info.name!="")
+            {
+        ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })}
+        else
+        {
+            ctx.reply("У тебя еще не создана анкета!!!");
+        }
+    });
 
 bot.command(
     "myprofile",
     (ctx) => {
-    if (info.gender!="")
+    if (info.name!="")
         {
     ctx.reply("Сейчас твоя анкета выглядит вот так:\nПривет!\n"+
     `Меня зовут ${info.name}\n`+ 
