@@ -49,7 +49,7 @@ bot.command(
 bot.command(
     "createprofile", async (ctx) => {
         await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
-        info.status = "name&gender";
+        info.status = "hobby";
 });
 
 const gender = new InlineKeyboard()
@@ -156,7 +156,7 @@ bot.on("message", async (ctx) =>{
                 // if(info.gender!=""){
                 };
                 await ctx.reply("Не забудем о возрасте. Сколько Вам лет?");
-                info.status = "hobby";
+                info.status = "age";
                 break;
             case "age":
                 info.age = Number(ctx.msg.text);
