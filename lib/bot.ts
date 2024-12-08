@@ -223,8 +223,8 @@ bot.callbackQuery("decline", async (ctx) =>{
 });
 
 const gender = new InlineKeyboard()
-    .text("Парень👨‍💼", "man")
-    .text("Девушка👩‍💼", "woman")
+    .text("Мужской👨‍💼", "man")
+    .text("Женский👩‍💼", "woman")
 
 bot.callbackQuery("man", async (ctx) => {
     await ctx.answerCallbackQuery();
@@ -281,7 +281,7 @@ bot.on("message", async (ctx) =>{
                         await ctx.reply("Сомневаюсь, что вам столько, введите свой настоящий возраст🤭")
                     } else {
                         info.age = Number(ctx.msg.text);
-                        await ctx.reply("Вы *парень* или *девушка*?", { reply_markup: gender, parse_mode: "MarkdownV2" });
+                        await ctx.reply("Укажите свой пол.", { reply_markup: gender });
                     }  
                 }
                 break;
