@@ -229,7 +229,7 @@ const gender = new InlineKeyboard()
 bot.callbackQuery("man", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    genderM(info.age);
+    info.gender = genderM(info.age);
     info.status = "createHobby";
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 
@@ -238,7 +238,7 @@ bot.callbackQuery("man", async (ctx) => {
 bot.callbackQuery("woman", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    genderW(info.age);
+    info.gender = genderW(info.age);
     info.status = "createHobby"; 
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 });
@@ -347,9 +347,9 @@ bot.on("message", async (ctx) =>{
                     } else {
                         info.age = Number(ctx.msg.text);
                         if (info.gender == "девушка" || "девочка" || "женщина"){
-                            genderW(info.age);
+                            info.gender = genderW(info.age);
                         } else {
-                            genderM(info.age);
+                            info.gender = genderM(info.age);
                         }
                         info.status = "done";
                         ctx.reply("Ваш возраст был изменён.");
