@@ -95,7 +95,7 @@ bot.command(
     `Я ${info.gender}.\n`+ 
     `Мне ${info.age}.\n`+
     `Мои увлечения: ${info.hobby}.\n`+
-    `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
+    // `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
     `Удобное время для встречи: ${info.time}.\n`)
     } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -273,7 +273,7 @@ bot.on("message", (ctx) =>{
                             `Я ${info.gender}.\n`+ 
                             `Мне ${info.age}.\n`+
                             `Мои увлечения: ${info.hobby}.\n`+
-                            `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
+                            // `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
                             `Удобное время для встречи: ${info.time}.\n`);
                         info.status = "done";
                         info.id = 1;//Мы понимаем, что это неправильно, но в нашем случае по-другому никак
