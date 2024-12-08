@@ -103,7 +103,7 @@ bot.command(
     `Я ${info.gender}\n`+ 
     `Мне ${info.age}\n`+
     `Мои увлечения: ${info.hobby}\n`+
-    `Моя любимая кофейня: ${info.coffeeshop}\n`+
+    `Моя любимая кофейня: ${JSON.stringify(info.hobby)}\n`+
     `Удобное время для встречи: ${info.time}\n`)
     } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -277,10 +277,10 @@ bot.on("message", async (ctx) =>{
                     info.coffeeshop.latitude = ctx.msg.location.latitude;
                     info.coffeeshop.longitude = ctx.msg.location.longitude;
                     info.status = "createTime";
+                    await ctx.reply("Напишите удобное время для встречи.");
                 } else{
                     await ctx.reply("Укажите геопозицию с помощью встроенного инструмента Telegram");
                 }
-                await ctx.reply("Напишите удобное время для встречи.");
                 break;
 
             case "createTime":
@@ -292,7 +292,7 @@ bot.on("message", async (ctx) =>{
                         `Меня зовут ${info.name}\n`+ 
                         `Я ${info.gender}\n`+ 
                         `Мне ${info.age}\n`+
-                        `Мои увлечения: ${info.hobby}\n`+
+                        `Мои увлечения: ${JSON.stringify(info.hobby)}\n`+
                         `Моя любимая кофейня: ${info.coffeeshop}\n`+
                         `Удобное время для встречи: ${info.time}\n`);
                         info.status = "done";
