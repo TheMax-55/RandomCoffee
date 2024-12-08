@@ -241,12 +241,12 @@ bot.on("message", async (ctx) =>{
                     ctx.reply("Пожалуйста, введите имя.")
                 } else {
                     info.name = ctx.msg.text;
-                    info.status = "createAge";
+                    info.status = "createAge&Gender";
                     await ctx.reply("Сколько вам лет?");
                 }
                 break;
 
-            case "createAge":
+            case "createAge&Gender":
                 if (ctx.msg.text!= undefined){
                 info.age = Number(ctx.msg.text);
                 await ctx.reply("Вы *парень* или *девушка*?", { reply_markup: gender, parse_mode: "MarkdownV2" });
@@ -255,18 +255,6 @@ bot.on("message", async (ctx) =>{
                 }
                 break;
             
-            // case "createGender":
-            //     if (ctx.msg.text!=undefined){
-            //         if ((ctx.msg.text).toLowerCase() == "парень" || (ctx.msg.text).toLowerCase() == "девушка"){
-            //             info.gender = (ctx.msg.text).toLowerCase();
-            //             info.status = "createHobby";
-            //             await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
-            //         } else {
-            //             await ctx.reply("Напишите 'парень', если  ")
-            //         }
-            //     }
-            //     break;
-
             case "createHobby":
                 if (ctx.msg.text!= undefined){
                     info.hobby = ctx.msg.text.split(",");
