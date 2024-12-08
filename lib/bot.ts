@@ -1,9 +1,8 @@
-import { Bot, InlineKeyboard } from "https://deno.land/x/grammy@v1.32.0/mod.ts";
+import { Bot } from "https://deno.land/x/grammy@v1.32.0/mod.ts";
 import { createClient } from '@supabase/supabase-js';
 import { UserInfo } from './interface.ts'
 import { genderM, genderW } from './functions.ts'
-
-
+import { edit, YesNo, decision, gender } from './inlinekeyboards.ts'
 
 const supabaseUrl = 'https://rcqxjuvsqeintzrkapgj.supabase.co';
 const supabaseKey = Deno.env.get("SUPABASE_KEY") || "";
@@ -67,9 +66,9 @@ bot.command(
 );
 
 bot.command(
-    "createprofile", async (ctx) => {
+    "createprofile", (ctx) => {
         if (info.id == 0){
-            await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
+            ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
             info.status = "createName";
         } else {
             ctx.reply("⚠️У вас уже создана анкета⚠️");
@@ -101,12 +100,6 @@ bot.command(
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
     }
 });
-
-const edit = new InlineKeyboard()
-    .row().text("Имя", "name").text("Возраст", "age")
-    .row().text("Кофейня", "coffeeshop").text("Время встречи","time")
-    .row().text("Увлечения", "hobby").text("Ничего", "nothing")
-    .row().text("Удалить анкету", "deleteprofile");
 
 bot.callbackQuery("name", async (ctx) => {
     await ctx.answerCallbackQuery();
@@ -169,10 +162,6 @@ bot.command(
         }
     });
 
-const YesNo = new InlineKeyboard()
-    .text("Да✅", "yes")
-    .text("Нет❌", "no")
-
 bot.callbackQuery("yes", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
@@ -196,10 +185,6 @@ bot.callbackQuery("no", async (ctx) => {
     await ctx.reply("Хорошо. Ваша анкета не была удалена.");
 })
 
-const decision = new InlineKeyboard()
-    .text("Согласен👍", "accept")
-    .text("Против👎", "decline")
-
 bot.callbackQuery("accept", async (ctx) =>{
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
@@ -211,10 +196,6 @@ bot.callbackQuery("decline", async (ctx) =>{
     await ctx.deleteMessage();
     await ctx.reply("Жаль... Буду искать нового собеседника.");
 });
-
-const gender = new InlineKeyboard()
-    .text("Мужской👨‍💼", "man")
-    .text("Женский👩‍💼", "woman")
 
 bot.callbackQuery("man", async (ctx) => {
     await ctx.answerCallbackQuery();
