@@ -257,16 +257,15 @@ bot.on("message", async (ctx) =>{
                 break;
 
             case "createAge&Gender":
-                if (typeof Number(ctx.msg.text) != "number"){
-                    await ctx.reply("Введите возраст с помощью цифр.");
-
-                } else { 
+                if (isNaN(Number(ctx.msg.text))){
                     if (Number(ctx.msg.text) < 10 || Number(ctx.msg.text) > 80){
                         await ctx.reply("Сомневаюсь, что вам столько, введите свой настоящий возраст🤭")
                     } else {
                         info.age = Number(ctx.msg.text);
                         await ctx.reply("Вы *парень* или *девушка*?", { reply_markup: gender, parse_mode: "MarkdownV2" });
                     }  
+                } else { 
+                    await ctx.reply("Введите возраст с помощью цифр.");
                 }
                 break;
             
