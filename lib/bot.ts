@@ -284,7 +284,9 @@ bot.on("message", (ctx) =>{
                 break;
             
             case "editName":
-                if (ctx.msg.text){
+                if (!ctx.msg.text || /[0-9_.*^%$#@!]/.test(ctx.msg.text)){
+                    ctx.reply("Пожалуйста, введите имя.");
+                } else {                    
                     info.name = ctx.msg.text;
                     info.status = "done";
                     ctx.reply("Ваше имя было изменено.");
