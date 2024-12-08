@@ -237,7 +237,7 @@ bot.on("message", async (ctx) =>{
         switch (info.status) {
 
             case "createName":
-                if (ctx.msg.text == undefined || ctx.msg.text.includes('0123456789*^%$#@!')){
+                if (ctx.msg.text == undefined){
                     ctx.reply("Пожалуйста, введите имя.")
                 } else {
                     info.name = ctx.msg.text;
@@ -247,7 +247,7 @@ bot.on("message", async (ctx) =>{
                 break;
 
             case "createAge":
-                if (ctx.msg.text!= undefined && ctx.msg.text.includes("0123456789")){
+                if (ctx.msg.text!= undefined){
                 info.age = Number(ctx.msg.text);
                 await ctx.reply("Вы *парень* или *девушка*?", { reply_markup: gender, parse_mode: "MarkdownV2" });
                 } else {
