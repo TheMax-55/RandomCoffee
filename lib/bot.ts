@@ -348,7 +348,8 @@ bot.on("message", async (ctx) =>{
                         info.age = Number(ctx.msg.text);
                         if (info.gender == "девушка" || "девочка" || "женщина"){
                             info.gender = genderW(info.age);
-                        } else {
+                        } 
+                        if (info.gender == "парень" || "мальчик" || "мужчина") {
                             info.gender = genderM(info.age);
                         }
                         info.status = "done";
