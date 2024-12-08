@@ -103,7 +103,7 @@ bot.command(
     `Я ${info.gender}\n`+ 
     `Мне ${info.age}\n`+
     `Мои увлечения: ${info.hobby}\n`+
-    `Моя любимая кофейня: ${JSON.stringify(info.hobby)}\n`+
+    `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
     `Удобное время для встречи: ${info.time}\n`)
     } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -292,8 +292,8 @@ bot.on("message", async (ctx) =>{
                         `Меня зовут ${info.name}\n`+ 
                         `Я ${info.gender}\n`+ 
                         `Мне ${info.age}\n`+
-                        `Мои увлечения: ${JSON.stringify(info.hobby)}\n`+
-                        `Моя любимая кофейня: ${info.coffeeshop}\n`+
+                        `Мои увлечения: ${info.hobby}\n`+
+                        `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
                         `Удобное время для встречи: ${info.time}\n`);
                         info.status = "done";
                 };
