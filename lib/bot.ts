@@ -165,7 +165,7 @@ bot.callbackQuery("deleteprofile", async (ctx) => {
         await ctx.deleteMessage();
         await ctx.reply("Вы уверены, что хотите удалить свою анкету?", { reply_markup: YesNo });
     } else {
-        await ctx.reply("⚠️У вас ещё не создана анкета⚠️");
+        ctx.reply("⚠️У вас ещё не создана анкета⚠️");
     }
 });
 
@@ -267,7 +267,7 @@ function genderM(age:number): string {
     } 
 }
 
-bot.on("message", async (ctx) =>{
+bot.on("message", (ctx) =>{
     if (info.status) {
         switch (info.status) {
 
@@ -275,7 +275,7 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text){
                     info.name = ctx.msg.text;
                     info.status = "createAge&Gender";
-                    await ctx.reply("Сколько вам лет?");
+                    ctx.reply("Сколько вам лет?");
                 } else {                    
                     ctx.reply("Пожалуйста, введите имя.");
                 }
@@ -283,13 +283,13 @@ bot.on("message", async (ctx) =>{
 
             case "createAge&Gender":
                 if (isNaN(Number(ctx.msg.text))){
-                    await ctx.reply("Введите возраст с помощью цифр.");
+                    ctx.reply("Введите возраст с помощью цифр.");
                 } else { 
                     if (Number(ctx.msg.text) < 10 || Number(ctx.msg.text) > 80){
-                        await ctx.reply("Сомневаюсь, что вам столько, введите свой настоящий возраст🤭")
+                        ctx.reply("Сомневаюсь, что вам столько, введите свой настоящий возраст🤭")
                     } else {
                         info.age = Number(ctx.msg.text);
-                        await ctx.reply("Укажите свой пол.", { reply_markup: gender });
+                        ctx.reply("Укажите свой пол.", { reply_markup: gender });
                     }  
                 }
                 break;
@@ -298,7 +298,7 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text){
                     info.hobby = ctx.msg.text.split(",");
                     info.status = "createCoffeeshop";
-                    await ctx.reply("Теперь укажите геопозицию вашей любимой кофейни с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
+                    ctx.reply("Теперь укажите геопозицию вашей любимой кофейни с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
                 }
                 break;
 
@@ -307,26 +307,31 @@ bot.on("message", async (ctx) =>{
                     info.coffeeshop.latitude = ctx.msg.location.latitude;
                     info.coffeeshop.longitude = ctx.msg.location.longitude;
                     info.status = "createTime";
-                    await ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
+                    ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
                 } else {
-                    await ctx.reply("Укажите геопозицию с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
+                    ctx.reply("Укажите геопозицию с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
                 }
                 break;
 
             case "createTime":
                 if (ctx.msg.text){
-                    info.time = ctx.msg.text;
-                    await ctx.reply("Отлично🤩\n" +
-                        "Ваша анкета выглядит так:\n"+
-                        "Привет!\n"+
-                        `Меня зовут ${info.name}.\n`+ 
-                        `Я ${info.gender}.\n`+ 
-                        `Мне ${info.age}.\n`+
-                        `Мои увлечения: ${info.hobby}.\n`+
-                        //`Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
-                        `Удобное время для встречи: ${info.time}.\n`);
-                    info.status = "done";
-                    info.id = 1;
+                    const checkTime = ctx.msg.text.split(":")
+                    if (0<=Number(checkTime[0]) && Number(checkTime[0])<24 && 0<=Number(checkTime[1]) && Number(checkTime[1])<60 ){
+                        info.time = ctx.msg.text;
+                        ctx.reply("Отлично🤩\n" +
+                            "Ваша анкета выглядит так:\n"+
+                            "Привет!\n"+
+                            `Меня зовут ${info.name}.\n`+ 
+                            `Я ${info.gender}.\n`+ 
+                            `Мне ${info.age}.\n`+
+                            `Мои увлечения: ${info.hobby}.\n`+
+                            //`Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
+                            `Удобное время для встречи: ${info.time}.\n`);
+                        info.status = "done";
+                        info.id = 1;
+                    } else {
+                        ctx.reply("Время должно быть написано в таком формате: чч:мм");
+                    }
                 };
                 break;
             
@@ -340,10 +345,10 @@ bot.on("message", async (ctx) =>{
             
             case "editAge":
                 if (isNaN(Number(ctx.msg.text))){
-                    await ctx.reply("Введите возраст с помощью цифр.");
+                    ctx.reply("Введите возраст с помощью цифр.");
                 } else { 
                     if (Number(ctx.msg.text) < 10 || Number(ctx.msg.text) > 80){
-                        await ctx.reply("Сомневаюсь, что вам столько, введите свой настоящий возраст🤭")
+                        ctx.reply("Сомневаюсь, что вам столько, введите свой настоящий возраст🤭")
                     } else {
                         info.age = Number(ctx.msg.text);
                         if (info.gender == "девушка" || "девочка" || "женщина"){
@@ -373,15 +378,20 @@ bot.on("message", async (ctx) =>{
                     info.status = "done";
                     ctx.reply("Ваша любимая кофейня была изменена.");
                 } else {
-                    await ctx.reply("Укажите геопозицию с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
+                    ctx.reply("Укажите геопозицию с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
                 }
                 break;
             
             case "editTime":
                 if (ctx.msg.text){
-                    info.time = ctx.msg.text;
-                    info.status = "done";
-                    ctx.reply("Время для встречи было изменено.");
+                    const checkTime = ctx.msg.text.split(":")
+                    if (0<=Number(checkTime[0]) && Number(checkTime[0])<24 && 0<=Number(checkTime[1]) && Number(checkTime[1])<60 ){
+                        info.time = ctx.msg.text;
+                        info.status = "done";
+                        ctx.reply("Время для встречи было изменено.");
+                    } else {
+                        ctx.reply("Время должно быть написано в таком формате: чч:мм")
+                    }
                 }
                 break;
 
