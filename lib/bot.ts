@@ -37,7 +37,7 @@ const info: UserInfo = {
 bot.command(
     "start",
     (ctx) => {
-        if (info.name == ""){
+        if (info.id == 0){
             ctx.reply("Добро пожаловать👋\n"+
             "Меня зовут RandomCoffeeBot.\n"+ 
             "Что я умею❓\n"+ 
@@ -67,16 +67,17 @@ bot.command(
     "🗑️ /deleteprofile - удаление своей анкеты\n"+
     "❌Запрещено:\n"+
     "📢Любой вид рекламы в анкетах.\n"+
-    "🔞Любой 18+ контент\n"+
-    "🇷🇺Любой контент, запрещённый на территории Российской Федерации\n"+
-    "➤Любой контент, запрещённый [правилами Telegram](https://telegram.org/tos/ru/)\n"+
+    "🔞Любой 18+ контент.\n"+
+    "🇷🇺Любой контент, запрещённый на территории Российской Федерации.\n"+
+    "➤Любой контент, запрещённый [правилами Telegram](https://telegram.org/tos/ru/).\n"+
+    "🤬Использование нецензурной лексики в анкете.\n"+
     "✅Разрешено:\n"+
     "✉️Искать людей для общения:)", { parse_mode: "Markdown" } ),
 );
 
 bot.command(
     "createprofile", async (ctx) => {
-        if (info.name == ""){
+        if (info.id == 0){
             await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
             info.status = "createName";
         } else {
@@ -87,7 +88,7 @@ bot.command(
 bot.command(
     "editprofile",
     (ctx) => {
-        if (info.name != "") {
+        if (info.id != 0) {
         ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit });
         } else {
             ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -97,7 +98,7 @@ bot.command(
 bot.command(
     "myprofile",
     (ctx) => {
-    if (info.name != ""){
+    if (info.id != 0){
     ctx.reply("Сейчас ваша анкета выглядит вот так:\nПривет!\n"+
     `Меня зовут ${info.name}.\n`+ 
     `Я ${info.gender}.\n`+ 
@@ -158,7 +159,7 @@ bot.callbackQuery("nothing", async (ctx) => {
 })
 
 bot.callbackQuery("deleteprofile", async (ctx) => {
-    if(info.name != "") {
+    if(info.id != 0) {
         await ctx.answerCallbackQuery();
         await ctx.deleteMessage();
         await ctx.reply("Вы уверены, что хотите удалить свою анкету?", { reply_markup: YesNo });
@@ -170,7 +171,7 @@ bot.callbackQuery("deleteprofile", async (ctx) => {
 bot.command(
     "deleteprofile",
     (ctx) => {
-        if (info.name != ""){
+        if (info.id != 0){
             ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
         } else {
             ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -227,9 +228,9 @@ const gender = new InlineKeyboard()
 bot.callbackQuery("man", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    info.gender="парень";
+    info.gender = "парень";
     info.status = "createHobby";
-    await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
+    await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 
 });
 
@@ -238,7 +239,7 @@ bot.callbackQuery("woman", async (ctx) => {
     await ctx.deleteMessage();
     info.gender="девушка";
     info.status = "createHobby";
-    await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
+    await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 });
 
 bot.on("message", async (ctx) =>{
@@ -256,11 +257,16 @@ bot.on("message", async (ctx) =>{
                 break;
 
             case "createAge&Gender":
-                if (ctx.msg.text){
-                info.age = Number(ctx.msg.text);
-                await ctx.reply("Вы *парень* или *девушка*?", { reply_markup: gender, parse_mode: "MarkdownV2" });
-                } else {
+                if (typeof Number(ctx.msg.text) != "number"){
                     await ctx.reply("Введите возраст с помощью цифр.");
+
+                } else { 
+                    if (Number(ctx.msg.text) < 10 || Number(ctx.msg.text) > 80){
+                        await ctx.reply("Сомневаюсь, что вам столько, введите свой настоящий возраст🤭")
+                    } else {
+                        info.age = Number(ctx.msg.text);
+                        await ctx.reply("Вы *парень* или *девушка*?", { reply_markup: gender, parse_mode: "MarkdownV2" });
+                    }  
                 }
                 break;
             
@@ -295,7 +301,8 @@ bot.on("message", async (ctx) =>{
                         `Мои увлечения: ${info.hobby}.\n`+
                         //`Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
                         `Удобное время для встречи: ${info.time}.\n`);
-                        info.status = "done";
+                    info.status = "done";
+                    info.id = 1;
                 };
                 break;
             
