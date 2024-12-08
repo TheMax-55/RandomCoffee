@@ -1,5 +1,8 @@
 import { Bot, InlineKeyboard } from "https://deno.land/x/grammy@v1.32.0/mod.ts";
 import { createClient } from '@supabase/supabase-js';
+import { UserInfo } from './interface.ts'
+import { genderM, genderW } from './functions.ts'
+
 
 
 const supabaseUrl = 'https://rcqxjuvsqeintzrkapgj.supabase.co';
@@ -7,19 +10,6 @@ const supabaseKey = Deno.env.get("SUPABASE_KEY") || "";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
-interface UserInfo {
-    id: number;
-    name: string;
-    gender: string;
-    age: number;
-    hobby: string[];
-    coffeeshop: {
-        latitude : number;
-        longitude: number;
-    };
-    time: string;
-    status : string;
-}
 
 const info: UserInfo = {
     id: 0,
@@ -242,30 +232,6 @@ bot.callbackQuery("woman", async (ctx) => {
     info.status = "createHobby"; 
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 });
-
-function genderW(age:number): string {
-    if (age < 16){
-        return "девочка";
-    } else { 
-        if (age > 30){
-            return "женщина";
-        }  else {
-            return "девушка";
-            } 
-    } 
-}
-
-function genderM(age:number): string {
-    if (age < 16){
-        return "мальчик";
-    } else { 
-        if (age > 30){
-            return "мужчина";
-        }  else {
-            return "парень";
-            } 
-    } 
-}
 
 bot.on("message", (ctx) =>{
     if (info.status) {
