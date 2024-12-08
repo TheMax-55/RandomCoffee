@@ -213,7 +213,7 @@ const decision = new InlineKeyboard()
 bot.callbackQuery("accept", async (ctx) =>{
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Отлично!");
+    await ctx.reply("Отлично! Желаю отлично провести время!");
 });
 
 bot.callbackQuery("decline", async (ctx) =>{
@@ -229,15 +229,7 @@ const gender = new InlineKeyboard()
 bot.callbackQuery("man", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    if (info.age < 16){
-        info.gender="мальчик";
-    } else { 
-        if (info.age > 30){
-            info.gender="мужчина";
-        }  else {
-            info.gender="парень";
-            }
-    }
+    genderM(info.age);
     info.status = "createHobby";
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 
@@ -246,18 +238,34 @@ bot.callbackQuery("man", async (ctx) => {
 bot.callbackQuery("woman", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    if (info.age < 16){
-        info.gender="девочка";
-    } else { 
-        if (info.age > 30){
-            info.gender="женщина";
-        }  else {
-            info.gender="девушка";
-            }
-    }
+    genderW(info.age);
     info.status = "createHobby"; 
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 });
+
+function genderW(age:number): string {
+    if (age < 16){
+        return "девочка";
+    } else { 
+        if (age > 30){
+            return "женщина";
+        }  else {
+            return "девушка";
+            } 
+    } 
+}
+
+function genderM(age:number): string {
+    if (age < 16){
+        return "мальчик";
+    } else { 
+        if (age > 30){
+            return "мужчина";
+        }  else {
+            return "парень";
+            } 
+    } 
+}
 
 bot.on("message", async (ctx) =>{
     if (info.status) {
@@ -338,6 +346,11 @@ bot.on("message", async (ctx) =>{
                         await ctx.reply("Сомневаюсь, что вам столько, введите свой настоящий возраст🤭")
                     } else {
                         info.age = Number(ctx.msg.text);
+                        if (info.gender == "девушка" || "девочка" || "женщина"){
+                            genderW(info.age);
+                        } else {
+                            genderM(info.age);
+                        }
                         info.status = "done";
                         ctx.reply("Ваш возраст был изменён.");
                     }  
