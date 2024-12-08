@@ -41,7 +41,7 @@ bot.command(
             "Также не забудьте прочитать правила пользования. /help\n");
         } else {
             ctx.reply("Привет👋\n"+
-            "Давно не виделись");
+            "Давно не виделись.");
         }
     }
 );
@@ -211,12 +211,33 @@ bot.callbackQuery("/decline", async (ctx) =>{
     await ctx.reply("Жаль... Буду искать нового собеседника.");
 });
 
+const gender = new InlineKeyboard()
+    .text("Парень👨‍💼", "man")
+    .text("Девушка👩‍💼", "woman")
+
+bot.callbackQuery("man", async (ctx) => {
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    info.gender="парень";
+    info.status = "createHobby";
+    await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
+
+});
+
+bot.callbackQuery("woman", async (ctx) => {
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    info.gender="девушка";
+    info.status = "createHobby";
+    await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
+});
+
 bot.on("message", async (ctx) =>{
     if (info.status) {
         switch (info.status) {
 
             case "createName":
-                if (ctx.msg.text == undefined || ctx.msg.text.includes('0-9')){
+                if (ctx.msg.text == undefined || ctx.msg.text.includes('0123456789*^%$#@!')){
                     ctx.reply("Пожалуйста, введите имя.")
                 } else {
                     info.name = ctx.msg.text;
@@ -226,20 +247,25 @@ bot.on("message", async (ctx) =>{
                 break;
 
             case "createAge":
+                if (ctx.msg.text!= undefined && ctx.msg.text.includes("0123456789")){
                 info.age = Number(ctx.msg.text);
-                info.status = "createGender";
-                await ctx.reply("Вы *парень* или *девушка*?", { parse_mode: "MarkdownV2" });
-                break;
-            
-            case "createGender":
-                if (ctx.msg.text!=undefined){
-                    if ((ctx.msg.text).toLowerCase() == "парень" || (ctx.msg.text).toLowerCase() == "девушка"){
-                        info.gender = (ctx.msg.text).toLowerCase();
-                        info.status = "createHobby";
-                        await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
-                    }
+                await ctx.reply("Вы *парень* или *девушка*?", { reply_markup: gender, parse_mode: "MarkdownV2" });
+                } else {
+                    await ctx.reply("Введите возраст с помощью цифр.")
                 }
                 break;
+            
+            // case "createGender":
+            //     if (ctx.msg.text!=undefined){
+            //         if ((ctx.msg.text).toLowerCase() == "парень" || (ctx.msg.text).toLowerCase() == "девушка"){
+            //             info.gender = (ctx.msg.text).toLowerCase();
+            //             info.status = "createHobby";
+            //             await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их через запятую.");
+            //         } else {
+            //             await ctx.reply("Напишите 'парень', если  ")
+            //         }
+            //     }
+            //     break;
 
             case "createHobby":
                 if (ctx.msg.text!= undefined){
