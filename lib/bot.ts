@@ -76,19 +76,19 @@ bot.command(
 
 bot.command(
     "createprofile", async (ctx) => {
-        if (info.name==""){
-            await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.")
+        if (info.name == ""){
+            await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
             info.status = "createName";
         } else {
-            await ctx.reply("⚠️У вас уже создана анкета⚠️");
+            ctx.reply("⚠️У вас уже создана анкета⚠️");
         }
 });
 
 bot.command(
     "editprofile",
     (ctx) => {
-        if (info.name!="") {
-        ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit })
+        if (info.name != "") {
+        ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit });
         } else {
             ctx.reply("⚠️У вас ещё не создана анкета⚠️");
         }
@@ -97,13 +97,13 @@ bot.command(
 bot.command(
     "myprofile",
     (ctx) => {
-    if (info.name!=""){
+    if (info.name != ""){
     ctx.reply("Сейчас ваша анкета выглядит вот так:\nПривет!\n"+
     `Меня зовут ${info.name}\n`+ 
     `Я ${info.gender}\n`+ 
     `Мне ${info.age}\n`+
     `Мои увлечения: ${info.hobby}\n`+
-    `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
+    // `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
     `Удобное время для встречи: ${info.time}\n`)
     } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -158,19 +158,19 @@ bot.callbackQuery("nothing", async (ctx) => {
 })
 
 bot.callbackQuery("deleteprofile", async (ctx) => {
-    if(info.name !="") {
+    if(info.name != "") {
         await ctx.answerCallbackQuery();
         await ctx.deleteMessage();
-        await ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
+        await ctx.reply("Вы уверены, что хотите удалить свою анкету?", { reply_markup: YesNo });
     } else {
-        await ctx.reply("⚠️У вас ещё не создана анкета⚠️")
+        await ctx.reply("⚠️У вас ещё не создана анкета⚠️");
     }
 });
 
 bot.command(
     "deleteprofile",
     (ctx) => {
-        if (info.name!=""){
+        if (info.name != ""){
             ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
         } else {
             ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -205,16 +205,16 @@ bot.callbackQuery("no", async (ctx) => {
 })
 
 const decision = new InlineKeyboard()
-    .text("Согласен👍", "/accept")
-    .text("Против👎", "/decline")
+    .text("Согласен👍", "accept")
+    .text("Против👎", "decline")
 
-bot.callbackQuery("/accept", async (ctx) =>{
+bot.callbackQuery("accept", async (ctx) =>{
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Отлично!");
 });
 
-bot.callbackQuery("/decline", async (ctx) =>{
+bot.callbackQuery("decline", async (ctx) =>{
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     await ctx.reply("Жаль... Буду искать нового собеседника.");
@@ -251,7 +251,7 @@ bot.on("message", async (ctx) =>{
                     info.status = "createAge&Gender";
                     await ctx.reply("Сколько вам лет?");
                 } else {                    
-                    ctx.reply("Пожалуйста, введите имя.")
+                    ctx.reply("Пожалуйста, введите имя.");
                 }
                 break;
 
@@ -260,7 +260,7 @@ bot.on("message", async (ctx) =>{
                 info.age = Number(ctx.msg.text);
                 await ctx.reply("Вы *парень* или *девушка*?", { reply_markup: gender, parse_mode: "MarkdownV2" });
                 } else {
-                    await ctx.reply("Введите возраст с помощью цифр.")
+                    await ctx.reply("Введите возраст с помощью цифр.");
                 }
                 break;
             
@@ -278,7 +278,7 @@ bot.on("message", async (ctx) =>{
                     info.coffeeshop.longitude = ctx.msg.location.longitude;
                     info.status = "createTime";
                     await ctx.reply("Напишите удобное время для встречи.");
-                } else{
+                } else {
                     await ctx.reply("Укажите геопозицию с помощью встроенного инструмента Telegram");
                 }
                 break;
@@ -289,12 +289,12 @@ bot.on("message", async (ctx) =>{
                     await ctx.reply("Отлично🤩\n" +
                         "Ваша анкета выглядит так:\n"+
                         "Привет!\n"+
-                        `Меня зовут ${info.name}\n`+ 
-                        `Я ${info.gender}\n`+ 
-                        `Мне ${info.age}\n`+
-                        `Мои увлечения: ${info.hobby}\n`+
-                        `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
-                        `Удобное время для встречи: ${info.time}\n`);
+                        `Меня зовут ${info.name}\n.`+ 
+                        `Я ${info.gender}\n.`+ 
+                        `Мне ${info.age}\n.`+
+                        `Мои увлечения: ${info.hobby}\n.`+
+                        //`Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
+                        `Удобное время для встречи: ${info.time}\n.`);
                         info.status = "done";
                 };
                 break;
@@ -303,7 +303,7 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text){
                     info.name = ctx.msg.text;
                     info.status = "done";
-                    ctx.reply("Ваше имя было изменено.")
+                    ctx.reply("Ваше имя было изменено.");
                 };
                 break;
             
@@ -311,7 +311,7 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text){
                     info.age = Number(ctx.msg.text);
                     info.status = "done";
-                    ctx.reply("Ваш возраст был изменён.")
+                    ctx.reply("Ваш возраст был изменён.");
                 };
                 break;
             
@@ -319,7 +319,7 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text){
                     info.hobby = ctx.msg.text.split(",");
                     info.status = "done";
-                    ctx.reply("Ваше увлечения были изменены.")
+                    ctx.reply("Ваше увлечения были изменены.");
                 }
                     break;
             
@@ -328,7 +328,7 @@ bot.on("message", async (ctx) =>{
                     info.coffeeshop.latitude = ctx.msg.location.latitude;
                     info.coffeeshop.longitude = ctx.msg.location.longitude;
                     info.status = "done";
-                    ctx.reply("Ваша любимая кофейня была изменена.")
+                    ctx.reply("Ваша любимая кофейня была изменена.");
                 };
                 break;
             
@@ -336,7 +336,7 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text){
                     info.time = ctx.msg.text;
                     info.status = "done";
-                    ctx.reply("Время для встречи было изменено.")
+                    ctx.reply("Время для встречи было изменено.");
                 }
                 break;
 
