@@ -12,7 +12,10 @@ interface UserInfo {
     gender: string;
     age: number;
     hobby: string[];
-    coffeeshop: string;
+    coffeeshop: {
+        latitude : number;
+        longitude: number;
+    };
     time: string;
     status : string;
 }
@@ -23,7 +26,10 @@ const info: UserInfo = {
     gender: "",
     age: 0,
     hobby: [],
-    coffeeshop: "",
+    coffeeshop: {
+        latitude: 0,
+        longitude: 0,
+    },
     time: "",
     status: ""
 };
@@ -141,7 +147,7 @@ bot.callbackQuery("hobby", async (ctx) => {
 bot.callbackQuery("coffeeshop", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Введите новую кофейню.");
+    await ctx.reply("Укажите новую геопозицию кофейни.");
     info.status = "editCoffeeshop";
 });
 
@@ -183,7 +189,10 @@ bot.callbackQuery("yes", async (ctx) => {
     info.gender = "";
     info.age = 0;
     info.hobby = [];
-    info.coffeeshop = "";
+    info.coffeeshop = {
+        latitude : 0,
+        longitude : 0,
+    };
     info.time = "";
     info.status = "";
     await ctx.reply("Ваша анкета была удалена.");
@@ -237,17 +246,17 @@ bot.on("message", async (ctx) =>{
         switch (info.status) {
 
             case "createName":
-                if (ctx.msg.text == undefined){
-                    ctx.reply("Пожалуйста, введите имя.")
-                } else {
+                if (ctx.msg.text){
                     info.name = ctx.msg.text;
                     info.status = "createAge&Gender";
                     await ctx.reply("Сколько вам лет?");
+                } else {                    
+                    ctx.reply("Пожалуйста, введите имя.")
                 }
                 break;
 
             case "createAge&Gender":
-                if (ctx.msg.text!= undefined){
+                if (ctx.msg.text){
                 info.age = Number(ctx.msg.text);
                 await ctx.reply("Вы *парень* или *девушка*?", { reply_markup: gender, parse_mode: "MarkdownV2" });
                 } else {
@@ -256,23 +265,24 @@ bot.on("message", async (ctx) =>{
                 break;
             
             case "createHobby":
-                if (ctx.msg.text!= undefined){
+                if (ctx.msg.text){
                     info.hobby = ctx.msg.text.split(",");
                     info.status = "createCoffeeshop";
-                    await ctx.reply("Теперь укажите адрес вашей любимой кофейни.");
+                    await ctx.reply("Теперь укажите геопозицию вашей любимой кофейни.");
                 }
                 break;
 
             case "createCoffeeshop":
-                if (ctx.msg.text!= undefined){
-                    info.coffeeshop = ctx.msg.text;
+                if (ctx.msg.location){
+                    info.coffeeshop.latitude = ctx.msg.location.latitude;
+                    info.coffeeshop.longitude = ctx.msg.location.longitude;
                     info.status = "createTime";
                 };
                 await ctx.reply("Напишите удобное время для встречи.");
                 break;
 
             case "createTime":
-                if (ctx.msg.text!= undefined){
+                if (ctx.msg.text){
                     info.time = ctx.msg.text;
                     await ctx.reply("Отлично🤩\n" +
                         "Ваша анкета выглядит так:\n"+
@@ -288,7 +298,7 @@ bot.on("message", async (ctx) =>{
                 break;
             
             case "editName":
-                if (ctx.msg.text!= undefined){
+                if (ctx.msg.text){
                     info.name = ctx.msg.text;
                     info.status = "done";
                     ctx.reply("Ваше имя было изменено.")
@@ -296,7 +306,7 @@ bot.on("message", async (ctx) =>{
                 break;
             
             case "editAge":
-                if (ctx.msg.text!= undefined){
+                if (ctx.msg.text){
                     info.age = Number(ctx.msg.text);
                     info.status = "done";
                     ctx.reply("Ваш возраст был изменён.")
@@ -304,7 +314,7 @@ bot.on("message", async (ctx) =>{
                 break;
             
             case "editHobby":
-                if (ctx.msg.text!= undefined){
+                if (ctx.msg.text){
                     info.hobby = ctx.msg.text.split(",");
                     info.status = "done";
                     ctx.reply("Ваше увлечения были изменены.")
@@ -312,15 +322,16 @@ bot.on("message", async (ctx) =>{
                     break;
             
             case "editCoffeeshop":
-                if (ctx.msg.text!= undefined){
-                    info.coffeeshop = ctx.msg.text;
+                if (ctx.msg.location){
+                    info.coffeeshop.latitude = ctx.msg.location.latitude;
+                    info.coffeeshop.longitude = ctx.msg.location.longitude;
                     info.status = "done";
                     ctx.reply("Ваша любимая кофейня была изменена.")
                 };
                 break;
             
             case "editTime":
-                if (ctx.msg.text!= undefined){
+                if (ctx.msg.text){
                     info.time = ctx.msg.text;
                     info.status = "done";
                     ctx.reply("Время для встречи было изменено.")
