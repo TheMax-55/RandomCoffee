@@ -314,11 +314,17 @@ bot.on("message", async (ctx) =>{
                 break;
             
             case "editAge":
-                if (ctx.msg.text){
-                    info.age = Number(ctx.msg.text);
-                    info.status = "done";
-                    ctx.reply("Ваш возраст был изменён.");
-                };
+                if (isNaN(Number(ctx.msg.text))){
+                    await ctx.reply("Введите возраст с помощью цифр.");
+                } else { 
+                    if (Number(ctx.msg.text) < 10 || Number(ctx.msg.text) > 80){
+                        await ctx.reply("Сомневаюсь, что вам столько, введите свой настоящий возраст🤭")
+                    } else {
+                        info.age = Number(ctx.msg.text);
+                        info.status = "done";
+                        ctx.reply("Ваш возраст был изменён.");
+                    }  
+                }
                 break;
             
             case "editHobby":
@@ -335,7 +341,9 @@ bot.on("message", async (ctx) =>{
                     info.coffeeshop.longitude = ctx.msg.location.longitude;
                     info.status = "done";
                     ctx.reply("Ваша любимая кофейня была изменена.");
-                };
+                } else {
+                    await ctx.reply("Укажите геопозицию с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
+                }
                 break;
             
             case "editTime":
