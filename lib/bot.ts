@@ -135,7 +135,7 @@ bot.callbackQuery("age", async (ctx) => {
 bot.callbackQuery("time", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Введите новое время встречи.");
+    await ctx.reply("Введите новое время встречи в таком формате: чч:мм");
     info.status = "editTime";
 });
 
@@ -299,7 +299,7 @@ bot.on("message", async (ctx) =>{
                     info.coffeeshop.latitude = ctx.msg.location.latitude;
                     info.coffeeshop.longitude = ctx.msg.location.longitude;
                     info.status = "createTime";
-                    await ctx.reply("Напишите удобное время для встречи.");
+                    await ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
                 } else {
                     await ctx.reply("Укажите геопозицию с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
                 }
