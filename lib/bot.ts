@@ -220,7 +220,7 @@ bot.on("message", (ctx) =>{
         switch (info.status) {
 
             case "createName":
-                if (ctx.msg.text){
+                if (ctx.msg.text && /[0-9_.*^%$#@!]/.test(ctx.msg.text)){
                     info.name = ctx.msg.text;
                     info.status = "createAge&Gender";
                     ctx.reply("Сколько вам лет?");
