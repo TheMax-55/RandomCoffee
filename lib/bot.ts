@@ -147,7 +147,7 @@ bot.callbackQuery("hobby", async (ctx) => {
 bot.callbackQuery("coffeeshop", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Укажите новую геопозицию кофейни с помощью встроенного инструмента Telegram(📎-> 🚩Геопозиция).");
+    await ctx.reply("Укажите новую геопозицию кофейни с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
     info.status = "editCoffeeshop";
 });
 
@@ -268,7 +268,7 @@ bot.on("message", async (ctx) =>{
                 if (ctx.msg.text){
                     info.hobby = ctx.msg.text.split(",");
                     info.status = "createCoffeeshop";
-                    await ctx.reply("Теперь укажите геопозицию вашей любимой кофейни с помощью встроенного инструмента Telegram(📎-> 🚩Геопозиция).");
+                    await ctx.reply("Теперь укажите геопозицию вашей любимой кофейни с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
                 }
                 break;
 
@@ -279,7 +279,7 @@ bot.on("message", async (ctx) =>{
                     info.status = "createTime";
                     await ctx.reply("Напишите удобное время для встречи.");
                 } else {
-                    await ctx.reply("Укажите геопозицию с помощью встроенного инструмента Telegram");
+                    await ctx.reply("Укажите геопозицию с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
                 }
                 break;
 
