@@ -1,12 +1,13 @@
 import { Bot } from "https://deno.land/x/grammy@v1.32.0/mod.ts";
-import { createClient } from '@supabase/supabase-js';
+//import { createClient } from '@supabase/supabase-js';
 import { UserInfo } from './interface.ts'
 import { genderM, genderW } from './functions.ts'
-import { edit, YesNo, decision, gender } from './inlinekeyboards.ts'
+import { edit, YesNo, gender } from './inlinekeyboards.ts'
 
-const supabaseUrl = 'https://rcqxjuvsqeintzrkapgj.supabase.co';
-const supabaseKey = Deno.env.get("SUPABASE_KEY") || "";
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Не реализовано
+// const supabaseUrl = 'https://rcqxjuvsqeintzrkapgj.supabase.co';
+// const supabaseKey = Deno.env.get("SUPABASE_KEY") || "";
+// const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
 
@@ -94,7 +95,7 @@ bot.command(
     `Я ${info.gender}.\n`+ 
     `Мне ${info.age}.\n`+
     `Мои увлечения: ${info.hobby}.\n`+
-    // `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
+    `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
     `Удобное время для встречи: ${info.time}.\n`)
     } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -272,7 +273,7 @@ bot.on("message", (ctx) =>{
                             `Я ${info.gender}.\n`+ 
                             `Мне ${info.age}.\n`+
                             `Мои увлечения: ${info.hobby}.\n`+
-                            //`Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
+                            `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
                             `Удобное время для встречи: ${info.time}.\n`);
                         info.status = "done";
                         info.id = 1;
