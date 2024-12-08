@@ -1,6 +1,7 @@
 import { Bot, InlineKeyboard } from "https://deno.land/x/grammy@v1.32.0/mod.ts";
 import { createClient } from '@supabase/supabase-js';
 
+
 const supabaseUrl = 'https://rcqxjuvsqeintzrkapgj.supabase.co';
 const supabaseKey = Deno.env.get("SUPABASE_KEY") || "";
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -228,7 +229,15 @@ const gender = new InlineKeyboard()
 bot.callbackQuery("man", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    info.gender = "парень";
+    if (info.age < 16){
+        info.gender="мальчик";
+    } else { 
+        if (info.age > 30){
+            info.gender="мужчина";
+        }  else {
+            info.gender="парень";
+            }
+    }
     info.status = "createHobby";
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 
@@ -237,8 +246,16 @@ bot.callbackQuery("man", async (ctx) => {
 bot.callbackQuery("woman", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    info.gender="девушка";
-    info.status = "createHobby";
+    if (info.age < 16){
+        info.gender="девочка";
+    } else { 
+        if (info.age > 30){
+            info.gender="женщина";
+        }  else {
+            info.gender="девушка";
+            }
+    }
+    info.status = "createHobby"; 
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 });
 
