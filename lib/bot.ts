@@ -78,7 +78,7 @@ bot.command(
     "createprofile", async (ctx) => {
         if (info.name==""){
             await ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.")
-            info.status = "createName&Gender";
+            info.status = "createName";
         } else {
             await ctx.reply("⚠️У вас уже создана анкета⚠️");
         }
