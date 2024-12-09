@@ -1,24 +1,24 @@
 //Функции для измениния названия пола при определённом возрасте
 export function genderW(age:number): string {
     if (age < 16){
-        return "девочка";
+        return "Девочка";
     } else { 
         if (age > 30){
-            return "женщина";
+            return "Женщина";
         }  else {
-            return "девушка";
+            return "Девушка";
             } 
     } 
 }
 
 export function genderM(age:number): string {
     if (age < 16){
-        return "мальчик";
+        return "Мальчик";
     } else { 
         if (age > 30){
-            return "мужчина";
+            return "Мужчина";
         }  else {
-            return "парень";
+            return "Парень";
             } 
     } 
 }

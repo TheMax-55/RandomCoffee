@@ -270,7 +270,7 @@ bot.on("message", (ctx) =>{
                             "Ваша анкета выглядит так:\n"+
                             "Привет!\n"+
                             `Меня зовут ${info.name}.\n`+ 
-                            `Я ${info.gender}.\n`+ 
+                            `Я ${info.gender.toLowerCase()}.\n`+ 
                             `Мне ${info.age}.\n`+
                             `Мои увлечения: ${info.hobby}.\n`);
                             // `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
@@ -301,10 +301,10 @@ bot.on("message", (ctx) =>{
                         ctx.reply("Сомневаюсь, что вам столько, введите свой настоящий возраст🤭")
                     } else {
                         info.age = Number(ctx.msg.text);
-                        if (["девочка", "девушка", "женщина"].includes(info.gender)){
+                        if (["Девочка", "Девушка", "Женщина"].includes(info.gender)){
                             info.gender = genderW(info.age);
                         } 
-                        if (["мальчик", "парень", "мужчина"].includes(info.gender)) {
+                        if (["Мальчик", "Парень", "Мужчина"].includes(info.gender)) {
                             info.gender = genderM(info.age);
                         }
                         info.status = "done";
