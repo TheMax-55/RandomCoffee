@@ -90,12 +90,12 @@ bot.command(
     "myprofile",
     (ctx) => {
     if (info.id != 0){
-    ctx.reply("Сейчас ваша анкета выглядит вот так:\nПривет!\n"+
+    ctx.reply("Ваши данные:\n"+
     `Меня зовут ${info.name}.\n`+ 
     `Я ${info.gender}.\n`+ 
     `Мне ${info.age}.\n`+
     `Мои увлечения: ${info.hobby}.\n`+
-    // `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
+    `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
     `Удобное время для встречи: ${info.time}.\n`)
     } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -272,11 +272,11 @@ bot.on("message", (ctx) =>{
                             `Меня зовут ${info.name}.\n`+ 
                             `Я ${info.gender}.\n`+ 
                             `Мне ${info.age}.\n`+
-                            `Мои увлечения: ${info.hobby}.\n`+
+                            `Мои увлечения: ${info.hobby}.\n`);
                             // `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
-                            `Удобное время для встречи: ${info.time}.\n`);
+                            // `Удобное время для встречи: ${info.time}.\n`);
                         info.status = "done";
-                        info.id = 1;//Мы понимаем, что это неправильно, но в нашем случае по-другому никак
+                        info.id = 1;//Мы понимаем, что это неправильно, но иначе сделать не смогли
                     } else {
                         ctx.reply("Время должно существовать и быть в таком формате: чч:мм");
                     }
