@@ -280,8 +280,7 @@ bot.on("message", (ctx) =>{
                             `Меня зовут ${info.name}.\n`+ 
                             `Я ${info.gender.toLowerCase()}.\n`+ 
                             `Мне ${info.age}.\n`+
-                            `Мои увлечения: ${info.hobby}.\n`+
-                            `${JSON.stringify(users)}`);
+                            `Мои увлечения: ${info.hobby}.\n`);
                             // `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
                             // `Удобное время для встречи: ${info.time}.\n`);
                     } else {
