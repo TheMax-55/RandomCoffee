@@ -11,7 +11,7 @@ import { edit, YesNo, gender } from './inlinekeyboards.ts'
 
 export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
 
-const users: Array<UserInfo> = [];
+const users: UserInfo[] = [];
 
 const info: UserInfo = {
     id: 0,
