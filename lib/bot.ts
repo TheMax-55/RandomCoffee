@@ -1,3 +1,5 @@
+//Будет доработан
+
 import { Bot } from "https://deno.land/x/grammy@v1.32.0/mod.ts";
 //import { createClient } from '@supabase/supabase-js';
 import { UserInfo } from './interface.ts'
@@ -10,8 +12,6 @@ import { edit, YesNo, gender } from './inlinekeyboards.ts'
 // const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
-
-const users: UserInfo[] = [];
 
 const info: UserInfo = {
     id: 0,
@@ -98,10 +98,7 @@ bot.command(
     `Возраст ${info.age}.\n`+
     `Увлечения: ${info.hobby}.\n`+
     `Любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
-    `Удобное время для встречи: ${info.time}.\n`+
-    `${JSON.stringify(users[0])}`+
-    `${JSON.stringify(users[1])}`+
-    `${JSON.stringify(users[2])}`)
+    `Удобное время для встречи: ${info.time}.\n`)
     } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
     }
@@ -273,7 +270,6 @@ bot.on("message", (ctx) =>{
                         info.time = ctx.msg.text;
                         info.status = "done";
                         info.id = ctx.msg.from.id;
-                        users.push(info);
                         ctx.reply("Отлично🤩\n" +
                             "Ваша анкета выглядит так:\n"+
                             "Привет!\n"+
