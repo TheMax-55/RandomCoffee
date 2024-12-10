@@ -68,8 +68,8 @@ bot.command(
 bot.command(
     "createprofile", (ctx) => {
         if (info.id == 0){
-            ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
             info.status = "createName";
+            ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
         } else {
             ctx.reply("⚠️У вас уже создана анкета⚠️");
         }
