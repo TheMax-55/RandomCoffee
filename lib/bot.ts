@@ -245,7 +245,7 @@ bot.callbackQuery("man", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     info.gender = genderM(info.age);
-    info.status = "createHobby";
+    info.status = "createHobby&Coffeeshop";
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 
 });
@@ -254,7 +254,7 @@ bot.callbackQuery("woman", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
     info.gender = genderW(info.age);
-    info.status = "createHobby"; 
+    info.status = "createHobby&Coffeeshop"; 
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 });
 
