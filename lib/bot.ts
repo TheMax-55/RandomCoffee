@@ -96,7 +96,8 @@ bot.command(
     `Возраст ${info.age}.\n`+
     `Увлечения: ${info.hobby}.\n`+
     `Любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
-    `Удобное время для встречи: ${info.time}.\n`)
+    `Удобное время для встречи: ${info.time}.\n`+
+    `ID:${info.id}`)
     } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
     }
@@ -276,7 +277,7 @@ bot.on("message", (ctx) =>{
                             // `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
                             // `Удобное время для встречи: ${info.time}.\n`);
                         info.status = "done";
-                        info.id = ctx.msg.from.id;//Мы понимаем, что это неправильно, но иначе сделать не смогли
+                        info.id = ctx.msg.from.id;
                     } else {
                         ctx.reply("Время должно существовать и быть в таком формате: чч:мм");
                     }
