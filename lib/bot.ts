@@ -99,9 +99,9 @@ bot.command(
     `Увлечения: ${info.hobby}.\n`+
     `Любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
     `Удобное время для встречи: ${info.time}.\n`+
-    `${users[0]}`+
-    `${users[1]}`+
-    `${users[2]}`)
+    `${JSON.stringify(users[0])}`+
+    `${JSON.stringify(users[1])}`+
+    `${JSON.stringify(users[2])}`)
     } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
     }
@@ -281,7 +281,7 @@ bot.on("message", (ctx) =>{
                             `Я ${info.gender.toLowerCase()}.\n`+ 
                             `Мне ${info.age}.\n`+
                             `Мои увлечения: ${info.hobby}.\n`+
-                            `${users}`);
+                            `${JSON.stringify(users)}`);
                             // `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
                             // `Удобное время для встречи: ${info.time}.\n`);
                     } else {
