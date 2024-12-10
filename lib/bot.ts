@@ -305,8 +305,8 @@ bot.on("message", (ctx) =>{
                             `Меня зовут ${info.name}.\n`+ 
                             `Я ${info.gender.toLowerCase()}.\n`+ 
                             `Мне ${info.age}.\n`+
-                            `Мои увлечения: ${info.hobby}.\n`);
-                            `Кофейня, в которой хочу встретиться: ${info.coffeeshop}\n`
+                            `Мои увлечения: ${info.hobby}.\n`+
+                            `Кофейня, в которой хочу встретиться: ${info.coffeeshop}\n`);
                             // `Удобное время для встречи: ${info.time}.\n`);
                     } else {
                         ctx.reply("Время должно существовать и быть в таком формате: чч:мм");
