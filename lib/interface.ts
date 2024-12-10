@@ -4,10 +4,7 @@ export interface UserInfo {
     gender: string;
     age: number;
     hobby: string[];
-    coffeeshop: {
-        latitude : number;
-        longitude: number;
-    };
+    coffeeshop: string;
     time: string;
     status : string;
 }

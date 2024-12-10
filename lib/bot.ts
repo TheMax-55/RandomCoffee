@@ -4,7 +4,7 @@ import { Bot } from "https://deno.land/x/grammy@v1.32.0/mod.ts";
 //import { createClient } from '@supabase/supabase-js';
 import { UserInfo } from './interface.ts'
 import { genderM, genderW } from './functions.ts'
-import { edit, YesNo, gender } from './inlinekeyboards.ts'
+import { edit, YesNo, gender, coffeeshops } from './inlinekeyboards.ts'
 
 // Не реализовано
 // const supabaseUrl = 'https://rcqxjuvsqeintzrkapgj.supabase.co';
@@ -19,10 +19,7 @@ const info: UserInfo = {
     gender: "",
     age: 0,
     hobby: [],
-    coffeeshop: {
-        latitude: 0,
-        longitude: 0,
-    },
+    coffeeshop: "",
     time: "",
     status: ""
 };
@@ -97,7 +94,7 @@ bot.command(
     `Пол: ${info.gender}.\n`+ 
     `Возраст ${info.age}.\n`+
     `Увлечения: ${info.hobby}.\n`+
-    `Любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
+    `Кофейня, в которой хочу встретиться: ${info.coffeeshop}\n`+
     `Удобное время для встречи: ${info.time}.\n`)
     } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -135,8 +132,55 @@ bot.callbackQuery("hobby", async (ctx) => {
 bot.callbackQuery("coffeeshop", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    await ctx.reply("Укажите новую геопозицию кофейни с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
-    info.status = "editCoffeeshop";
+    await ctx.reply("Укажите новую кофейню из предложенного списка.", { reply_markup: coffeeshops });
+});
+
+bot.callbackQuery("zhuk21", async (ctx) => {
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    info.coffeeshop = "SKRTV, ул. Жукова 21";
+    if (info.time==""){
+        ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
+        info.status="createTime";
+    } else{
+        await ctx.reply("Кофейня была изменена.");
+    }
+});
+
+bot.callbackQuery("pm8", async (ctx) => {
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    info.coffeeshop = "SKRTV, ул. Проспект Мира 8";
+    if (info.time==""){
+        ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
+        info.status="createTime";
+    } else{
+        await ctx.reply("Кофейня была изменена.");
+    }
+});
+
+bot.callbackQuery("ent47", async (ctx) => {
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    info.coffeeshop = "SKRTV, ул. Энтузиастов 47";
+    if (info.time==""){
+        ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
+        info.status="createTime";
+    } else{
+        await ctx.reply("Кофейня была изменена.");
+    }
+});
+
+bot.callbackQuery("zve13", async (ctx) => {
+    await ctx.answerCallbackQuery();
+    await ctx.deleteMessage();
+    info.coffeeshop = "SKRTV, ул. Звёздная 13";
+    if (info.time==""){
+        ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
+        info.status="createTime";
+    } else{
+        await ctx.reply("Кофейня была изменена.");
+    }
 });
 
 bot.callbackQuery("nothing", async (ctx) => {
@@ -173,10 +217,7 @@ bot.callbackQuery("yes", async (ctx) => {
     info.gender = "";
     info.age = 0;
     info.hobby = [];
-    info.coffeeshop = {
-        latitude : 0,
-        longitude : 0,
-    };
+    info.coffeeshop = "";
     info.time = "";
     info.status = "";
     await ctx.reply("Ваша анкета была удалена.");
@@ -244,22 +285,10 @@ bot.on("message", (ctx) =>{
                 }
                 break;
             
-            case "createHobby":
+            case "createHobby&Coffeeshop":
                 if (ctx.msg.text){
                     info.hobby = ctx.msg.text.split(",");
-                    info.status = "createCoffeeshop";
-                    ctx.reply("Теперь укажите геопозицию вашей любимой кофейни с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
-                }
-                break;
-
-            case "createCoffeeshop":
-                if (ctx.msg.location){
-                    info.coffeeshop.latitude = ctx.msg.location.latitude;
-                    info.coffeeshop.longitude = ctx.msg.location.longitude;
-                    info.status = "createTime";
-                    ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
-                } else {
-                    ctx.reply("Укажите геопозицию с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
+                    ctx.reply("Выберите кофейню из предложенного списка.", { reply_markup: coffeeshops });
                 }
                 break;
 
@@ -277,7 +306,7 @@ bot.on("message", (ctx) =>{
                             `Я ${info.gender.toLowerCase()}.\n`+ 
                             `Мне ${info.age}.\n`+
                             `Мои увлечения: ${info.hobby}.\n`);
-                            // `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
+                            `Кофейня, в которой хочу встретиться: ${info.coffeeshop}\n`
                             // `Удобное время для встречи: ${info.time}.\n`);
                     } else {
                         ctx.reply("Время должно существовать и быть в таком формате: чч:мм");
@@ -322,18 +351,7 @@ bot.on("message", (ctx) =>{
                     ctx.reply("Ваше увлечения были изменены.");
                 }
                     break;
-            
-            case "editCoffeeshop":
-                if (ctx.msg.location){
-                    info.coffeeshop.latitude = ctx.msg.location.latitude;
-                    info.coffeeshop.longitude = ctx.msg.location.longitude;
-                    info.status = "done";
-                    ctx.reply("Ваша любимая кофейня была изменена.");
-                } else {
-                    ctx.reply("Укажите геопозицию с помощью встроенного инструмента Telegram.\n📎-> 🚩Геопозиция");
-                }
-                break;
-            
+                        
             case "editTime":
                 if (ctx.msg.text){
                     const checkTime = ctx.msg.text.split(":")
