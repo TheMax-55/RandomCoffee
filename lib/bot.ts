@@ -11,6 +11,8 @@ import { edit, YesNo, gender } from './inlinekeyboards.ts'
 
 export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
 
+const users: Array<UserInfo> = [];
+
 const info: UserInfo = {
     id: 0,
     name: "",
@@ -97,7 +99,7 @@ bot.command(
     `Увлечения: ${info.hobby}.\n`+
     `Любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
     `Удобное время для встречи: ${info.time}.\n`+
-    `ID:${info.id}`)
+    `${users}`)
     } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
     }
@@ -267,17 +269,19 @@ bot.on("message", (ctx) =>{
                     const checkTime = ctx.msg.text.split(":")
                     if (0<=Number(checkTime[0]) && Number(checkTime[0])<24 && 0<=Number(checkTime[1]) && Number(checkTime[1])<60 ){
                         info.time = ctx.msg.text;
+                        info.status = "done";
+                        info.id = ctx.msg.from.id;
+                        users.push(info);
                         ctx.reply("Отлично🤩\n" +
                             "Ваша анкета выглядит так:\n"+
                             "Привет!\n"+
                             `Меня зовут ${info.name}.\n`+ 
                             `Я ${info.gender.toLowerCase()}.\n`+ 
                             `Мне ${info.age}.\n`+
-                            `Мои увлечения: ${info.hobby}.\n`);
+                            `Мои увлечения: ${info.hobby}.\n`+
+                            `${users}`);
                             // `Моя любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
                             // `Удобное время для встречи: ${info.time}.\n`);
-                        info.status = "done";
-                        info.id = ctx.msg.from.id;
                     } else {
                         ctx.reply("Время должно существовать и быть в таком формате: чч:мм");
                     }
