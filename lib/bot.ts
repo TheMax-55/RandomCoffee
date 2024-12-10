@@ -99,7 +99,9 @@ bot.command(
     `Увлечения: ${info.hobby}.\n`+
     `Любимая кофейня: ${JSON.stringify(info.coffeeshop)}\n`+
     `Удобное время для встречи: ${info.time}.\n`+
-    `${users}`)
+    `${users[0]}`+
+    `${users[1]}`+
+    `${users[2]}`)
     } else{
         ctx.reply("⚠️У вас ещё не создана анкета⚠️");
     }
