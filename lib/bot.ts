@@ -11,8 +11,6 @@ import { edit, YesNo, gender, coffeeshops } from './inlinekeyboards.ts'
 // const supabaseKey = Deno.env.get("SUPABASE_KEY") || "";
 // const supabase = createClient(supabaseUrl, supabaseKey);
 
-export let users: Array<UserInfo> = [];
-
 export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
 
 const info: UserInfo = {
@@ -268,7 +266,7 @@ bot.callbackQuery("woman", async (ctx) => {
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 });
 
-bot.on("message", async (ctx) =>{
+bot.on("message", (ctx) =>{
     if (info.status) {
         switch (info.status) {
 
@@ -309,9 +307,7 @@ bot.on("message", async (ctx) =>{
                         info.time = ctx.msg.text;
                         info.status = "done";
                         info.id = ctx.msg.from.id;
-                        await ctx.reply(JSON.stringify(users));
-                        users = [info];
-                        await ctx.reply("Отлично🤩\n" +
+                        ctx.reply("Отлично🤩\n" +
                             "Ваша анкета выглядит так:\n"+
                             "Привет!\n"+
                             `Меня зовут ${info.name}.\n`+ 
@@ -319,8 +315,7 @@ bot.on("message", async (ctx) =>{
                             `Мне ${info.age}.\n`+
                             `Мои увлечения: ${info.hobby}.\n`+
                             `Кофейня, в которой хочу встретиться: ${info.coffeeshop}.\n`+
-                            `Удобное время для встречи: ${info.time}.\n`);     
-                        await ctx.reply(JSON.stringify(users));                
+                            `Удобное время для встречи: ${info.time}.\n`);                
                     } else {
                         ctx.reply("Время должно существовать и быть в таком формате: чч:мм");
                     }
@@ -334,7 +329,6 @@ bot.on("message", async (ctx) =>{
                     info.name = ctx.msg.text;
                     info.status = "done";
                     ctx.reply("Ваше имя было изменено.");
-                    await ctx.reply(JSON.stringify(users)); 
                 };
                 break;
             
