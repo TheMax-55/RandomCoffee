@@ -308,7 +308,7 @@ bot.on("message", async (ctx) =>{
                         info.status = "done";
                         info.id = ctx.msg.from.id;
                         await ctx.reply(JSON.stringify(users));
-                        await users.push(info);
+                        await users.concat(info);
                         await ctx.reply("Отлично🤩\n" +
                             "Ваша анкета выглядит так:\n"+
                             "Привет!\n"+

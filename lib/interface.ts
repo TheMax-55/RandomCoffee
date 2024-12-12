@@ -9,4 +9,4 @@ export interface UserInfo {
     status : string;
 }
 
-export let users: Array<UserInfo> = [];
+export const users: Array<UserInfo> = [];
