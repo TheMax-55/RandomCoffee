@@ -13,7 +13,7 @@ import { edit, YesNo, gender, coffeeshops } from './inlinekeyboards.ts'
 
 export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
 
-const users: Array<UserInfo> = []
+//const users: Array<UserInfo> = []
 
 const info: UserInfo = {
     id: 0,
@@ -301,8 +301,8 @@ bot.on("message", async (ctx) =>{
                         info.time = ctx.msg.text;
                         info.status = "done";
                         info.id = ctx.msg.from.id;
-                        await ctx.reply(JSON.stringify(users));
-                        await users.push(info);
+                        //await ctx.reply(JSON.stringify(users));
+                        //await users.push(info);
                         await ctx.reply("Отлично🤩\n" +
                             "Ваша анкета выглядит так:\n"+
                             "Привет!\n"+
@@ -312,7 +312,7 @@ bot.on("message", async (ctx) =>{
                             `Мои увлечения: ${info.hobby}.\n`+
                             `Кофейня, в которой хочу встретиться: ${info.coffeeshop}.\n`+
                             `Удобное время для встречи: ${info.time}.\n`);     
-                        await ctx.reply(JSON.stringify(users));                
+                        //await ctx.reply(JSON.stringify(users));                
                     } else {
                         ctx.reply("Время должно существовать и быть в таком формате: чч:мм");
                     }
@@ -326,7 +326,6 @@ bot.on("message", async (ctx) =>{
                     info.name = ctx.msg.text;
                     info.status = "done";
                     ctx.reply("Ваше имя было изменено.");
-                    ctx.reply(JSON.stringify(users));
                 };
                 break;
             
@@ -346,7 +345,6 @@ bot.on("message", async (ctx) =>{
                         }
                         info.status = "done";
                         ctx.reply("Ваш возраст был изменён.");
-                        ctx.reply(JSON.stringify(users));
                     }  
                 }
                 break;
@@ -356,7 +354,6 @@ bot.on("message", async (ctx) =>{
                     info.hobby = ctx.msg.text.split(",");
                     info.status = "done";
                     ctx.reply("Ваше увлечения были изменены.");
-                    ctx.reply(JSON.stringify(users));
                 }
                     break;
                         
@@ -367,7 +364,6 @@ bot.on("message", async (ctx) =>{
                         info.time = ctx.msg.text;
                         info.status = "done";
                         ctx.reply("Время для встречи было изменено.");
-                        ctx.reply(JSON.stringify(users));
                     } else {
                         ctx.reply("Время должно существовать и быть в таком формате: чч:мм")
                     }
