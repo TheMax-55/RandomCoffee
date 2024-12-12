@@ -2,7 +2,7 @@
 
 import { Bot } from "https://deno.land/x/grammy@v1.32.0/mod.ts";
 //import { createClient } from '@supabase/supabase-js';
-import { UserInfo, users } from './interface.ts'
+import { UserInfo } from './interface.ts'
 import { genderM, genderW } from './functions.ts'
 import { edit, YesNo, gender, coffeeshops } from './inlinekeyboards.ts'
 
@@ -10,6 +10,8 @@ import { edit, YesNo, gender, coffeeshops } from './inlinekeyboards.ts'
 // const supabaseUrl = 'https://rcqxjuvsqeintzrkapgj.supabase.co';
 // const supabaseKey = Deno.env.get("SUPABASE_KEY") || "";
 // const supabase = createClient(supabaseUrl, supabaseKey);
+
+export let users: Array<UserInfo> = [];
 
 export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
 
@@ -308,7 +310,7 @@ bot.on("message", async (ctx) =>{
                         info.status = "done";
                         info.id = ctx.msg.from.id;
                         await ctx.reply(JSON.stringify(users));
-                        await users.concat(info);
+                        users = users.concat(info);
                         await ctx.reply("Отлично🤩\n" +
                             "Ваша анкета выглядит так:\n"+
                             "Привет!\n"+
