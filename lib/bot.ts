@@ -2,7 +2,7 @@
 
 import { Bot } from "https://deno.land/x/grammy@v1.32.0/mod.ts";
 //import { createClient } from '@supabase/supabase-js';
-import { UserInfo } from './interface.ts'
+import { UserInfo, users } from './interface.ts'
 import { genderM, genderW } from './functions.ts'
 import { edit, YesNo, gender, coffeeshops } from './inlinekeyboards.ts'
 
@@ -12,8 +12,6 @@ import { edit, YesNo, gender, coffeeshops } from './inlinekeyboards.ts'
 // const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
-
-//const users: Array<UserInfo> = []
 
 const info: UserInfo = {
     id: 0,
@@ -309,8 +307,8 @@ bot.on("message", async (ctx) =>{
                         info.time = ctx.msg.text;
                         info.status = "done";
                         info.id = ctx.msg.from.id;
-                        //await ctx.reply(JSON.stringify(users));
-                        //await users.push(info);
+                        await ctx.reply(JSON.stringify(users));
+                        await users.push(info);
                         await ctx.reply("Отлично🤩\n" +
                             "Ваша анкета выглядит так:\n"+
                             "Привет!\n"+
@@ -320,7 +318,7 @@ bot.on("message", async (ctx) =>{
                             `Мои увлечения: ${info.hobby}.\n`+
                             `Кофейня, в которой хочу встретиться: ${info.coffeeshop}.\n`+
                             `Удобное время для встречи: ${info.time}.\n`);     
-                        //await ctx.reply(JSON.stringify(users));                
+                        await ctx.reply(JSON.stringify(users));                
                     } else {
                         ctx.reply("Время должно существовать и быть в таком формате: чч:мм");
                     }
