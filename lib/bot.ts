@@ -260,7 +260,7 @@ bot.callbackQuery("woman", async (ctx) => {
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
 });
 
-bot.on("message", (ctx) =>{
+bot.on("message", async (ctx) =>{
     if (info.status) {
         switch (info.status) {
 
@@ -301,10 +301,9 @@ bot.on("message", (ctx) =>{
                         info.time = ctx.msg.text;
                         info.status = "done";
                         info.id = ctx.msg.from.id;
-                        ctx.reply(JSON.stringify(users))
-                        users.push(info);
-                        ctx.reply(JSON.stringify(users))
-                        ctx.reply("Отлично🤩\n" +
+                        await ctx.reply(JSON.stringify(users))
+                        await users.push(info);
+                        await ctx.reply("Отлично🤩\n" +
                             "Ваша анкета выглядит так:\n"+
                             "Привет!\n"+
                             `Меня зовут ${info.name}.\n`+ 
@@ -312,7 +311,8 @@ bot.on("message", (ctx) =>{
                             `Мне ${info.age}.\n`+
                             `Мои увлечения: ${info.hobby}.\n`+
                             `Кофейня, в которой хочу встретиться: ${info.coffeeshop}.\n`+
-                            `Удобное время для встречи: ${info.time}.\n`);                     
+                            `Удобное время для встречи: ${info.time}.\n`);     
+                        await ctx.reply(JSON.stringify(users))                
                     } else {
                         ctx.reply("Время должно существовать и быть в таком формате: чч:мм");
                     }
