@@ -8,3 +8,5 @@ export interface UserInfo {
     time: string;
     status : string;
 }
+
+export let users: Array<UserInfo> = [];
