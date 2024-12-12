@@ -334,6 +334,7 @@ bot.on("message", async (ctx) =>{
                     info.name = ctx.msg.text;
                     info.status = "done";
                     ctx.reply("Ваше имя было изменено.");
+                    await ctx.reply(JSON.stringify(users)); 
                 };
                 break;
             
