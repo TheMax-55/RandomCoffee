@@ -301,9 +301,9 @@ bot.on("message", (ctx) =>{
                         info.time = ctx.msg.text;
                         info.status = "done";
                         info.id = ctx.msg.from.id;
-                        ctx.reply(users.toString())
+                        ctx.reply(JSON.stringify(users))
                         users.push(info);
-                        ctx.reply(users.toString())
+                        ctx.reply(JSON.stringify(users))
                         ctx.reply("Отлично🤩\n" +
                             "Ваша анкета выглядит так:\n"+
                             "Привет!\n"+
