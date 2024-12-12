@@ -13,6 +13,8 @@ import { edit, YesNo, gender, coffeeshops } from './inlinekeyboards.ts'
 
 export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
 
+const users: Array<UserInfo> = []
+
 const info: UserInfo = {
     id: 0,
     name: "",
@@ -299,6 +301,9 @@ bot.on("message", (ctx) =>{
                         info.time = ctx.msg.text;
                         info.status = "done";
                         info.id = ctx.msg.from.id;
+                        ctx.reply(users.toString())
+                        users.push(info);
+                        ctx.reply(users.toString())
                         ctx.reply("Отлично🤩\n" +
                             "Ваша анкета выглядит так:\n"+
                             "Привет!\n"+
@@ -307,7 +312,7 @@ bot.on("message", (ctx) =>{
                             `Мне ${info.age}.\n`+
                             `Мои увлечения: ${info.hobby}.\n`+
                             `Кофейня, в которой хочу встретиться: ${info.coffeeshop}.\n`+
-                            `Удобное время для встречи: ${info.time}.\n`);
+                            `Удобное время для встречи: ${info.time}.\n`);                     
                     } else {
                         ctx.reply("Время должно существовать и быть в таком формате: чч:мм");
                     }
