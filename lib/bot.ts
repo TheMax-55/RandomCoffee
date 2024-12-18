@@ -147,6 +147,7 @@ bot.callbackQuery("coffeeshop", async (ctx) => {
 bot.callbackQuery("zhuk21", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
+    if (info.id == ctx.msg?.from?.id){
     info.coffeeshop = "SKRTV, ул. Жукова 21";
     if (info.time==""){
         ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
@@ -154,11 +155,13 @@ bot.callbackQuery("zhuk21", async (ctx) => {
     } else{
         await ctx.reply("Кофейня была изменена.");
     }
+    }
 });
 
 bot.callbackQuery("pm8", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
+    if (info.id == ctx.msg?.from?.id){
     info.coffeeshop = "SKRTV, ул. Проспект Мира 8";
     if (info.time==""){
         ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
@@ -166,11 +169,13 @@ bot.callbackQuery("pm8", async (ctx) => {
     } else{
         await ctx.reply("Кофейня была изменена.");
     }
+    }
 });
 
 bot.callbackQuery("ent47", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
+    if (info.id == ctx.msg?.from?.id){
     info.coffeeshop = "SKRTV, ул. Энтузиастов 47";
     if (info.time==""){
         ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
@@ -178,17 +183,20 @@ bot.callbackQuery("ent47", async (ctx) => {
     } else{
         await ctx.reply("Кофейня была изменена.");
     }
+    }
 });
 
 bot.callbackQuery("zve13", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
+    if (info.id == ctx.msg?.from?.id){
     info.coffeeshop = "SKRTV, ул. Звёздная 13";
     if (info.time==""){
         ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
         info.status="createTime";
     } else{
         await ctx.reply("Кофейня была изменена.");
+    }
     }
 });
 
@@ -221,15 +229,17 @@ bot.command(
 bot.callbackQuery("yes", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    info.id = 0;
-    info.name = "";
-    info.gender = "";
-    info.age = 0;
-    info.hobby = [];
-    info.coffeeshop = "";
-    info.time = "";
-    info.status = "";
-    await ctx.reply("Ваша анкета была удалена.");
+    if (info.id == ctx.msg?.from?.id){
+        info.id = 0;
+        info.name = "";
+        info.gender = "";
+        info.age = 0;
+        info.hobby = [];
+        info.coffeeshop = "";
+        info.time = "";
+        info.status = "";
+        await ctx.reply("Ваша анкета была удалена.");
+    }
 })
 
 bot.callbackQuery("no", async (ctx) => {
@@ -253,18 +263,22 @@ bot.callbackQuery("decline", async (ctx) =>{
 bot.callbackQuery("man", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
+    if (info.id == ctx.msg?.from?.id){
     info.gender = genderM(info.age);
     info.status = "createHobby&Coffeeshop";
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
+    }
 
 });
 
 bot.callbackQuery("woman", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
+    if (info.id == ctx.msg?.from?.id){
     info.gender = genderW(info.age);
     info.status = "createHobby&Coffeeshop"; 
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
+    }
 });
 
 bot.on("message", (ctx) =>{
