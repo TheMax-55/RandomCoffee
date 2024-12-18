@@ -27,7 +27,7 @@ const info: UserInfo = {
 bot.command(
     "start",
     (ctx) => {
-        if (info.id != ctx.msg?.from?.id){
+        if (info.time == ""){
             ctx.reply("Добро пожаловать👋\n"+
             "Меня зовут RandomCoffeeBot.\n"+ 
             "Что я умею❓\n"+ 
@@ -147,7 +147,6 @@ bot.callbackQuery("coffeeshop", async (ctx) => {
 bot.callbackQuery("zhuk21", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    if (info.id == ctx.msg?.from?.id){
     info.coffeeshop = "SKRTV, ул. Жукова 21";
     if (info.time==""){
         ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
@@ -155,13 +154,11 @@ bot.callbackQuery("zhuk21", async (ctx) => {
     } else{
         await ctx.reply("Кофейня была изменена.");
     }
-    }
 });
 
 bot.callbackQuery("pm8", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    if (info.id == ctx.msg?.from?.id){
     info.coffeeshop = "SKRTV, ул. Проспект Мира 8";
     if (info.time==""){
         ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
@@ -169,13 +166,11 @@ bot.callbackQuery("pm8", async (ctx) => {
     } else{
         await ctx.reply("Кофейня была изменена.");
     }
-    }
 });
 
 bot.callbackQuery("ent47", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    if (info.id == ctx.msg?.from?.id){
     info.coffeeshop = "SKRTV, ул. Энтузиастов 47";
     if (info.time==""){
         ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
@@ -183,20 +178,17 @@ bot.callbackQuery("ent47", async (ctx) => {
     } else{
         await ctx.reply("Кофейня была изменена.");
     }
-    }
 });
 
 bot.callbackQuery("zve13", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    if (info.id == ctx.msg?.from?.id){
     info.coffeeshop = "SKRTV, ул. Звёздная 13";
     if (info.time==""){
         ctx.reply("Напишите удобное время для встречи в таком формате: чч:мм");
         info.status="createTime";
     } else{
         await ctx.reply("Кофейня была изменена.");
-    }
     }
 });
 
