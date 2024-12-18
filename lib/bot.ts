@@ -75,7 +75,7 @@ bot.command(
 
 bot.command(
     "createprofile", (ctx) => {
-        if (ctx.msg?.from?.id && info.id != ctx.msg.from.id){
+        if (ctx.msg?.from?.id && info.time == ""){
             info.status = "createName";
             info.id = ctx.msg.from.id;
             ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
