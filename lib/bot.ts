@@ -75,9 +75,8 @@ bot.command(
 
 bot.command(
     "createprofile", (ctx) => {
-        if (ctx.msg?.from?.id && info.id != ctx.msg.from.id){
+        if (info.id != ctx.msg?.from?.id){
             info.status = "createName";
-            info.id = ctx.msg.from.id;
             ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
         } else {
             ctx.reply("⚠️У вас уже создана анкета⚠️");
@@ -306,6 +305,7 @@ bot.on("message", (ctx) =>{
                     const checkTime = ctx.msg.text.split(":")
                     if (0<=Number(checkTime[0]) && Number(checkTime[0])<24 && 0<=Number(checkTime[1]) && Number(checkTime[1])<60 ){
                         info.time = ctx.msg.text;
+                        info.id = ctx.msg.from.id;
                         info.status = "done";
                         ctx.reply("Отлично🤩\n" +
                             "Ваша анкета выглядит так:\n"+
