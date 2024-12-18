@@ -87,7 +87,7 @@ bot.command(
 bot.command(
     "editprofile",
     (ctx) => {
-        if (info.time != "") {
+        if (info.time != "" && info.id == ctx.msg.from?.id) {
         ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit });
         } else {
             ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -97,7 +97,7 @@ bot.command(
 bot.command(
     "myprofile",
     (ctx) => {
-    if (info.time != ""){
+    if (info.time != "" && info.id == ctx.msg.from?.id){
     ctx.reply("Ваши данные:\n"+
     `Имя: ${info.name}.\n`+ 
     `Пол: ${info.gender}.\n`+ 
@@ -207,7 +207,7 @@ bot.callbackQuery("nothing", async (ctx) => {
 })
 
 bot.callbackQuery("deleteprofile", async (ctx) => {
-    if(info.time != "") {
+    if(info.time != "" && info.id == ctx.msg?.from?.id) {
         await ctx.answerCallbackQuery();
         await ctx.deleteMessage();
         await ctx.reply("Вы уверены, что хотите удалить свою анкету?", { reply_markup: YesNo });
@@ -219,7 +219,7 @@ bot.callbackQuery("deleteprofile", async (ctx) => {
 bot.command(
     "deleteprofile",
     (ctx) => {
-        if (info.time != ""){
+        if (info.time != "" && info.id == ctx.msg.from?.id){
             ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
         } else {
             ctx.reply("⚠️У вас ещё не создана анкета⚠️");
