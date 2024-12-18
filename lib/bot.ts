@@ -263,22 +263,18 @@ bot.callbackQuery("decline", async (ctx) =>{
 bot.callbackQuery("man", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    if (info.id == ctx.msg?.from?.id){
     info.gender = genderM(info.age);
     info.status = "createHobby&Coffeeshop";
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
-    }
 
 });
 
 bot.callbackQuery("woman", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    if (info.id == ctx.msg?.from?.id){
     info.gender = genderW(info.age);
     info.status = "createHobby&Coffeeshop"; 
     await ctx.reply("Хотелось бы узнать о ваших увлечениях, перечислите их.");
-    }
 });
 
 bot.on("message", (ctx) =>{
