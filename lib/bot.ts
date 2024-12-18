@@ -27,7 +27,7 @@ const info: UserInfo = {
 bot.command(
     "start",
     (ctx) => {
-        if (info.id == 0){
+        if (info.id != ctx.msg?.from?.id){
             ctx.reply("Добро пожаловать👋\n"+
             "Меня зовут RandomCoffeeBot.\n"+ 
             "Что я умею❓\n"+ 
@@ -75,8 +75,9 @@ bot.command(
 
 bot.command(
     "createprofile", (ctx) => {
-        if (info.id == 0){
+        if (ctx.msg?.from?.id && info.id != ctx.msg.from.id){
             info.status = "createName";
+            info.id = ctx.msg.from.id;
             ctx.reply("Давайте создадим анкету. Для начала напишите своё имя.");
         } else {
             ctx.reply("⚠️У вас уже создана анкета⚠️");
@@ -86,7 +87,7 @@ bot.command(
 bot.command(
     "editprofile",
     (ctx) => {
-        if (info.id != 0) {
+        if (info.id == ctx.msg.from?.id) {
         ctx.reply("Чтобы вы хотели изменить?", { reply_markup: edit });
         } else {
             ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -96,7 +97,7 @@ bot.command(
 bot.command(
     "myprofile",
     (ctx) => {
-    if (info.id != 0){
+    if (info.id == ctx.msg.from?.id){
     ctx.reply("Ваши данные:\n"+
     `Имя: ${info.name}.\n`+ 
     `Пол: ${info.gender}.\n`+ 
@@ -198,7 +199,7 @@ bot.callbackQuery("nothing", async (ctx) => {
 })
 
 bot.callbackQuery("deleteprofile", async (ctx) => {
-    if(info.id != 0) {
+    if(info.id == ctx.msg?.from?.id) {
         await ctx.answerCallbackQuery();
         await ctx.deleteMessage();
         await ctx.reply("Вы уверены, что хотите удалить свою анкету?", { reply_markup: YesNo });
@@ -210,7 +211,7 @@ bot.callbackQuery("deleteprofile", async (ctx) => {
 bot.command(
     "deleteprofile",
     (ctx) => {
-        if (info.id != 0){
+        if (info.id == ctx.msg?.from?.id){
             ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
         } else {
             ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -267,7 +268,7 @@ bot.callbackQuery("woman", async (ctx) => {
 });
 
 bot.on("message", (ctx) =>{
-    if (info.status) {
+    if (info.status && info.id == ctx.msg.from.id) {
         switch (info.status) {
 
             case "createName":
@@ -306,7 +307,6 @@ bot.on("message", (ctx) =>{
                     if (0<=Number(checkTime[0]) && Number(checkTime[0])<24 && 0<=Number(checkTime[1]) && Number(checkTime[1])<60 ){
                         info.time = ctx.msg.text;
                         info.status = "done";
-                        info.id = ctx.msg.from.id;
                         ctx.reply("Отлично🤩\n" +
                             "Ваша анкета выглядит так:\n"+
                             "Привет!\n"+
