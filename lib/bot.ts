@@ -199,7 +199,7 @@ bot.callbackQuery("nothing", async (ctx) => {
 })
 
 bot.callbackQuery("deleteprofile", async (ctx) => {
-    if(info.time != "" && info.id == ctx.msg?.from?.id) {
+    if(info.time != "") {
         await ctx.answerCallbackQuery();
         await ctx.deleteMessage();
         await ctx.reply("Вы уверены, что хотите удалить свою анкету?", { reply_markup: YesNo });
@@ -211,7 +211,7 @@ bot.callbackQuery("deleteprofile", async (ctx) => {
 bot.command(
     "deleteprofile",
     (ctx) => {
-        if (info.time != "" && info.id == ctx.msg.from?.id){
+        if (info.time != ""){
             ctx.reply("Вы уверены, что хотите удалить свою анкету?",{ reply_markup: YesNo });
         } else {
             ctx.reply("⚠️У вас ещё не создана анкета⚠️");
@@ -221,17 +221,15 @@ bot.command(
 bot.callbackQuery("yes", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.deleteMessage();
-    if (info.id == ctx.msg?.from?.id){
-        info.id = 0;
-        info.name = "";
-        info.gender = "";
-        info.age = 0;
-        info.hobby = [];
-        info.coffeeshop = "";
-        info.time = "";
-        info.status = "";
-        await ctx.reply("Ваша анкета была удалена.");
-    }
+    info.id = 0;
+    info.name = "";
+    info.gender = "";        
+    info.age = 0;
+    info.hobby = [];
+    info.coffeeshop = "";
+    info.time = "";
+    info.status = "";
+    await ctx.reply("Ваша анкета была удалена.");
 })
 
 bot.callbackQuery("no", async (ctx) => {
